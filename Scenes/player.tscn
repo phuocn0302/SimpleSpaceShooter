@@ -1,0 +1,56 @@
+[gd_scene load_steps=7 format=3 uid="uid://ck2orlq2o5qmb"]
+
+[ext_resource type="Script" path="res://Scripts/player.gd" id="1_2n5gr"]
+[ext_resource type="Texture2D" uid="uid://dohdccsjbso4t" path="res://Assets/Texture/Ship.png" id="2_8ky4p"]
+[ext_resource type="Texture2D" uid="uid://ea7yn7iawkw3" path="res://Assets/Texture/Ship Particle.png" id="3_ukbv1"]
+
+[sub_resource type="Curve" id="Curve_bueo5"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_yubnx"]
+curve = SubResource("Curve_bueo5")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_8lr10"]
+particle_flag_disable_z = true
+direction = Vector3(-1, 0, 0)
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 70.0
+initial_velocity_max = 110.0
+angular_velocity_min = -180.0
+angular_velocity_max = 180.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_min = 2.0
+scale_max = 2.0
+scale_curve = SubResource("CurveTexture_yubnx")
+turbulence_enabled = true
+turbulence_noise_scale = 1.0
+turbulence_noise_speed = Vector3(0.5, 0.5, 0.5)
+
+[node name="Player" type="CharacterBody2D"]
+motion_mode = 1
+script = ExtResource("1_2n5gr")
+
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-14, -15, 0, -15, 8, -7, 11, -7, 15, -2, 15, 2, 11, 7, 8, 7, 0, 15, -14, 15, -11, 4, -11, -4)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_8ky4p")
+
+[node name="ShootSpot" type="Marker2D" parent="."]
+position = Vector2(20, 0)
+
+[node name="Hitbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="Hitbox"]
+polygon = PackedVector2Array(-14, -15, 0, -15, 8, -7, 11, -7, 15, -2, 15, 2, 11, 7, 8, 7, 0, 15, -14, 15, -11, 4, -11, -4)
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(-16, 0)
+amount = 15
+process_material = SubResource("ParticleProcessMaterial_8lr10")
+texture = ExtResource("3_ukbv1")
+lifetime = 0.5
+
+[connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]

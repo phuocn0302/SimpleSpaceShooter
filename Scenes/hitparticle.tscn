@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=3 uid="uid://cimbtvvykav1b"]
+
+[ext_resource type="Script" path="res://Scripts/hitparticle.gd" id="1_wjbfi"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_r34cp"]
+particle_flag_disable_z = true
+direction = Vector3(0, 0, 0)
+spread = 180.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 10.0
+initial_velocity_max = 150.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_min = 2.0
+scale_max = 2.0
+
+[node name="hitparticle" type="Node2D"]
+script = ExtResource("1_wjbfi")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+amount = 6
+process_material = SubResource("ParticleProcessMaterial_r34cp")
+lifetime = 0.25
+explosiveness = 1.0
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.25
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

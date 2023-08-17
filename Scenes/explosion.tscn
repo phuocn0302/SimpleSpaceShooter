@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://ng2tggihhdpm"]
+
+[ext_resource type="Script" path="res://Scripts/explosion.gd" id="1_xuueb"]
+[ext_resource type="Texture2D" uid="uid://ea7yn7iawkw3" path="res://Assets/Texture/Ship Particle.png" id="2_eoqrg"]
+
+[sub_resource type="Curve" id="Curve_n28du"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_mxjau"]
+curve = SubResource("Curve_n28du")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_wvtrg"]
+lifetime_randomness = 0.5
+particle_flag_disable_z = true
+spread = 180.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 100.0
+initial_velocity_max = 200.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_max = 2.0
+scale_curve = SubResource("CurveTexture_mxjau")
+
+[node name="explosion" type="Node2D"]
+script = ExtResource("1_xuueb")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+amount = 50
+process_material = SubResource("ParticleProcessMaterial_wvtrg")
+texture = ExtResource("2_eoqrg")
+explosiveness = 1.0
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
