@@ -1,19 +1,22 @@
+class_name Enemy
 extends Area2D
 
-@onready var ExplosionPath = preload("res://Scenes/explosion.tscn")
+var ExplosionPath = preload("res://Scenes/explosion.tscn")
 
-var hp = 5
+var contact_damage: int = 1
+
+@export var hp:int = 5
+@export var speed: float = 100
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
-
-
+	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 
 	$AnimationPlayer.play("vibrate")
-	global_position.x -= 100 * delta
+	global_position.x -= speed * delta
 	
 	if (hp <= 0):
 		die()
@@ -25,9 +28,8 @@ func die():
 	
 	queue_free()
 
-func _on_area_entered(area):
-	hp -= 1
-
+func take_damage(damage):
+	hp -= damage
 
 func _on_visible_on_screen_notifier_2d_screen_exited():
 	queue_free()

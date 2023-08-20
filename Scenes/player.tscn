@@ -29,8 +29,10 @@ turbulence_noise_scale = 1.0
 turbulence_noise_speed = Vector3(0.5, 0.5, 0.5)
 
 [node name="Player" type="CharacterBody2D"]
+collision_mask = 514
 motion_mode = 1
 script = ExtResource("1_2n5gr")
+speed = 200.0
 
 [node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
 polygon = PackedVector2Array(-14, -15, 0, -15, 8, -7, 11, -7, 15, -2, 15, 2, 11, 7, 8, 7, 0, 15, -14, 15, -11, 4, -11, -4)
@@ -38,19 +40,20 @@ polygon = PackedVector2Array(-14, -15, 0, -15, 8, -7, 11, -7, 15, -2, 15, 2, 11,
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_8ky4p")
 
-[node name="ShootSpot" type="Marker2D" parent="."]
-position = Vector2(20, 0)
-
-[node name="Hitbox" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionPolygon2D" parent="Hitbox"]
-polygon = PackedVector2Array(-14, -15, 0, -15, 8, -7, 11, -7, 15, -2, 15, 2, 11, 7, 8, 7, 0, 15, -14, 15, -11, 4, -11, -4)
-
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
 position = Vector2(-16, 0)
 amount = 15
 process_material = SubResource("ParticleProcessMaterial_8lr10")
 texture = ExtResource("3_ukbv1")
 lifetime = 0.5
+
+[node name="ShootSpot" type="Marker2D" parent="."]
+position = Vector2(20, 0)
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="Hitbox"]
+polygon = PackedVector2Array(-14, -15, 0, -15, 8, -7, 11, -7, 15, -2, 15, 2, 11, 7, 8, 7, 0, 15, -14, 15, -11, 4, -11, -4)
 
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]

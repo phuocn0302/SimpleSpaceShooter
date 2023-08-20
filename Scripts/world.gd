@@ -16,9 +16,21 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if enemy_can_spawn:
-		spawn_enemy()
+		spawn_enemy_random()
 
 func spawn_enemy():
+	var spawn_node = $EnemySpawnPos.get_children()
+	var spawn_pos = [0,2,4]
+	
+	for i in spawn_pos:
+		var enemy = EnemyPath.instantiate()
+		var enemy_container = $EnemyContainer
+		enemy_container.add_child(enemy)
+		var random_spawn = spawn_node[i]
+		enemy.global_position = spawn_node[i].global_position 
+	enemy_can_spawn = false
+
+func spawn_enemy_random():
 	var enemy = EnemyPath.instantiate()
 	
 	var enemy_container = $EnemyContainer

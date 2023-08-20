@@ -20,6 +20,7 @@ script = ExtResource("1_wdwe3")
 offset_right = 360.0
 offset_bottom = 180.0
 color = Color(0, 0, 0, 1)
+metadata/_edit_use_anchors_ = true
 
 [node name="CPUParticles2D" type="GPUParticles2D" parent="Background"]
 position = Vector2(360, 90)
@@ -27,6 +28,8 @@ amount = 10
 process_material = SubResource("ParticleProcessMaterial_r1ldr")
 
 [node name="Bound" type="StaticBody2D" parent="."]
+collision_layer = 512
+collision_mask = 0
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Bound"]
 polygon = PackedVector2Array(0, 180, -28, 208, -19, -20, 388, -20, 388, 204, -27, 213, 0, 180, 360, 180, 360, 0, 0, 0)
@@ -37,14 +40,14 @@ position = Vector2(50, 90)
 [node name="EnemySpawnPos" type="Node2D" parent="."]
 position = Vector2(10, 0)
 
-[node name="Marker2D1" type="Marker2D" parent="EnemySpawnPos"]
-position = Vector2(350, 90)
+[node name="Marker2D3" type="Marker2D" parent="EnemySpawnPos"]
+position = Vector2(350, 30)
 
 [node name="Marker2D2" type="Marker2D" parent="EnemySpawnPos"]
 position = Vector2(350, 60)
 
-[node name="Marker2D3" type="Marker2D" parent="EnemySpawnPos"]
-position = Vector2(350, 30)
+[node name="Marker2D1" type="Marker2D" parent="EnemySpawnPos"]
+position = Vector2(350, 90)
 
 [node name="Marker2D4" type="Marker2D" parent="EnemySpawnPos"]
 position = Vector2(350, 120)
