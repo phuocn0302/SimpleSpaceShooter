@@ -37,6 +37,9 @@ func shoot():
 		can_shoot = true
 
 func iframe():
+	var hit_anim = ["hit_1", "hit_2"]
+	var rand_hit = hit_anim[randi()% hit_anim.size()]
+	$AnimationPlayer.play(rand_hit)
 	can_take_damage = false
 	can_deal_contact_damage = false
 	await get_tree().create_timer(iframe_time).timeout
