@@ -6,7 +6,7 @@ var ExplosionPath = preload("res://Scenes/explosion.tscn")
 
 var iframe_time: float = 14/60
 
-@export var speed: float = 300.0
+@export var speed: float = 200.0
 @export var fire_rate: float = 0.1 # Per second
 @export var hp: int = 3
 
@@ -31,7 +31,7 @@ func shoot():
 	if can_shoot:
 		var bullet = BulletPath.instantiate()
 		get_parent().add_child(bullet)
-		bullet.global_position = $ShootSpot.global_position
+		bullet.global_position = $NormalShootPos/ShootSpot.global_position
 		can_shoot = false
 		await get_tree().create_timer(fire_rate).timeout
 		can_shoot = true

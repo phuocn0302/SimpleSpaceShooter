@@ -60,34 +60,6 @@ tracks/1/keys = {
 "values": [0.0]
 }
 
-[sub_resource type="Animation" id="Animation_fakpo"]
-resource_name = "hit_2"
-length = 0.4
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:material:shader_parameter/hit_opacity")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 0,
-"values": [0.0, 1.0, 0.0, 1.0, 0.0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 0,
-"values": [0.0, 0.349066, -0.349066, 0.349066, 0.0]
-}
-
 [sub_resource type="Animation" id="Animation_dnrbr"]
 resource_name = "hit_1"
 length = 0.4
@@ -116,6 +88,34 @@ tracks/1/keys = {
 "values": [0.0, -0.349066, 0.349066, -0.349066, 0.0]
 }
 
+[sub_resource type="Animation" id="Animation_fakpo"]
+resource_name = "hit_2"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/hit_opacity")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 1.0, 0.0, 1.0, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.349066, -0.349066, 0.349066, 0.0]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_3yfmh"]
 _data = {
 "RESET": SubResource("Animation_df3o2"),
@@ -127,7 +127,6 @@ _data = {
 collision_mask = 514
 motion_mode = 1
 script = ExtResource("1_2n5gr")
-speed = 200.0
 
 [node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
 polygon = PackedVector2Array(-14, -15, 0, -15, 8, -7, 11, -7, 15, -2, 15, 2, 11, 7, 8, 7, 0, 15, -14, 15, -11, 4, -11, -4)
@@ -143,9 +142,6 @@ process_material = SubResource("ParticleProcessMaterial_8lr10")
 texture = ExtResource("3_ukbv1")
 lifetime = 0.5
 
-[node name="ShootSpot" type="Marker2D" parent="."]
-position = Vector2(20, 0)
-
 [node name="Hitbox" type="Area2D" parent="."]
 collision_mask = 2
 
@@ -156,5 +152,10 @@ polygon = PackedVector2Array(-14, -15, 0, -15, 8, -7, 11, -7, 15, -2, 15, 2, 11,
 libraries = {
 "": SubResource("AnimationLibrary_3yfmh")
 }
+
+[node name="NormalShootPos" type="Node2D" parent="."]
+
+[node name="ShootSpot" type="Marker2D" parent="NormalShootPos"]
+position = Vector2(20, 0)
 
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
