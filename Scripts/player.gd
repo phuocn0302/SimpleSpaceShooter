@@ -14,15 +14,18 @@ var can_shoot = true
 var can_take_damage = true
 var can_deal_contact_damage = true
 
+func _ready():
+	$CPUParticles2D.emitting = true
+	$AnimationPlayer.play("blinking")
+	await get_tree().create_timer(1).timeout
+	$AnimationPlayer.play("RESET")
+
 func _process(delta):
 	if (Input.is_action_pressed("ui_accept")):
 		shoot()
 	
 	if (hp <=0):
 		die()
-
-# bueyanyan
-
 func _physics_process(delta):
 	var dir = Input.get_vector("ui_left","ui_right","ui_up","ui_down").normalized()
 	velocity = dir * speed
@@ -38,9 +41,7 @@ func shoot():
 		can_shoot = true
 
 func iframe():
-	var hit_anim = ["hit_1", "hit_2"]
-	var rand_hit = hit_anim[randi()% hit_anim.size()]
-	$AnimationPlayer.play(rand_hit)
+	
 	can_take_damage = false
 	can_deal_contact_damage = false
 	await get_tree().create_timer(iframe_time).timeout
@@ -50,6 +51,9 @@ func iframe():
 func take_damage(damage):
 	if can_take_damage:
 		hp -= damage
+		var hit_anim = ["hit_1", "hit_2"]
+		var rand_hit = hit_anim[randi()% hit_anim.size()]
+		$AnimationPlayer.play(rand_hit)
 		iframe()
 
 func die():
