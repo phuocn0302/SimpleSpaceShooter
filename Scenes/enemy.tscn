@@ -150,7 +150,6 @@ turbulence_noise_scale = 1.0
 turbulence_noise_speed = Vector3(0.5, 0.5, 0.5)
 
 [node name="Enemy" type="Area2D"]
-position = Vector2(200, 80)
 collision_layer = 2
 collision_mask = 5
 script = ExtResource("1_feknv")
@@ -174,10 +173,5 @@ amount = 5
 process_material = SubResource("ParticleProcessMaterial_h6s3f")
 texture = ExtResource("3_njsnm")
 lifetime = 0.5
-
-[node name="Node2D" type="Node2D" parent="."]
-
-[node name="Marker2D" type="Marker2D" parent="Node2D"]
-position = Vector2(-15.745, 10.12)
 
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
