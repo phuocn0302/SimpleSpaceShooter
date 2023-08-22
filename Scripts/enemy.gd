@@ -11,7 +11,6 @@ var is_rotate: bool = true
 @export var speed: float = 100
 
 @onready var player = get_parent().get_parent().get_node("Player")
-@onready var has_player: bool = get_parent().get_parent().has_node("Player")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -20,7 +19,7 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	$AnimationPlayer.play("vibrate")
-	silly_movement(delta)
+	follow_player(delta)
 	if (hp <= 0):
 		die()
 
@@ -34,11 +33,11 @@ func silly_movement(delta):
 		is_rotate = true
 
 func follow_player(delta):
-	if has_player:
+	if get_parent().get_parent().has_node("Player"):
 		global_position += (player.global_position - global_position).normalized() * speed * delta
 	else:
-		global_position.x -= speed * delta
-
+		silly_movement(delta)
+	
 func die():
 	var explosion = ExplosionPath.instantiate()
 	get_parent().add_child(explosion)
