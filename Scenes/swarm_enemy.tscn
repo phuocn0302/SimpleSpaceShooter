@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://cl78fqp7vdlgb"]
+
+[ext_resource type="Script" path="res://Scripts/Swarm_enemy.gd" id="1_rq1vi"]
+
+[node name="Swarm_enemy" type="Node2D"]
+position = Vector2(194, 84)
+script = ExtResource("1_rq1vi")

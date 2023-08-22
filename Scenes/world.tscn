@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://chuti8pmchocr"]
 
 [ext_resource type="Script" path="res://Scripts/world.gd" id="1_wdwe3"]
-[ext_resource type="PackedScene" uid="uid://c76qekpnedfev" path="res://Scenes/spinning_enemy.tscn" id="2_o7jat"]
+[ext_resource type="PackedScene" uid="uid://b6o8kfy3hn4f0" path="res://Scenes/spinning_enemy.tscn" id="2_o7jat"]
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_r1ldr"]
 emission_shape = 3

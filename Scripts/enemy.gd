@@ -5,6 +5,7 @@ var ExplosionPath = preload("res://Scenes/explosion.tscn")
 var contact_damage: int = 1
 var is_rotate: bool = true
 var is_chasing: bool = false
+var is_swarm: bool = false
 
 @export var hp:int = 5
 @export var speed: float = 100
@@ -18,7 +19,8 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	$AnimationPlayer.play("vibrate")
-	silly_movement(delta)
+	if is_swarm:
+		swarm_movement()
 	if (hp <= 0):
 		die()
 
@@ -49,3 +51,12 @@ func take_damage(damage):
 
 func _on_visible_on_screen_notifier_2d_screen_exited():
 	queue_free()
+
+func swarm_movement():
+	is_swarm = true
+	global_position += ($Node2D/Marker2D.global_position - self.global_position).normalized()
+	if is_rotate == true:
+		$Node2D.rotate(-0.3)
+		is_rotate = false
+		await get_tree().create_timer(0.1).timeout
+		is_rotate = true

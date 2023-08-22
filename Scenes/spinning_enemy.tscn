@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://c76qekpnedfev"]
+[gd_scene load_steps=5 format=3 uid="uid://b6o8kfy3hn4f0"]
 
 [ext_resource type="Script" path="res://Scripts/spinning_enemy.gd" id="1_0rvs3"]
 [ext_resource type="Texture2D" uid="uid://bx0nwtmuiowxe" path="res://Assets/Texture/SpiningEnemy.png" id="1_jr18o"]
