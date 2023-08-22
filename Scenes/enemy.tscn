@@ -149,7 +149,7 @@ turbulence_enabled = true
 turbulence_noise_scale = 1.0
 turbulence_noise_speed = Vector3(0.5, 0.5, 0.5)
 
-[node name="Enemy" type="Area2D"]
+[node name="Enemy" type="Area2D" groups=["Enemy"]]
 collision_layer = 2
 collision_mask = 5
 script = ExtResource("1_feknv")

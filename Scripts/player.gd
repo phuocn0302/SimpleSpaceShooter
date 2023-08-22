@@ -62,6 +62,6 @@ func die():
 	queue_free()
 
 func _on_hitbox_area_entered(area):
-	if (can_deal_contact_damage) and (area is Enemy):
+	if (can_deal_contact_damage) and (area.is_in_group("Enemy")):
 		area.die()
 		take_damage(1)

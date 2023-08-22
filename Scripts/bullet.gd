@@ -22,7 +22,7 @@ func _on_visible_on_screen_notifier_2d_screen_exited():
 
 
 func _on_area_entered(area):
-	if area is Enemy: 
+	if area.is_in_group("Enemy"): 
 		var hit_particle = HitparticlePath.instantiate()
 		get_parent().add_child(hit_particle)
 		hit_particle.global_position = global_position

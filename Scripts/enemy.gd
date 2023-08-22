@@ -1,4 +1,3 @@
-class_name Enemy
 extends Area2D
 
 var ExplosionPath = preload("res://Scenes/explosion.tscn")
