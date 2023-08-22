@@ -183,7 +183,7 @@ tracks/1/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_2kkxm"]
-resource_name = "spawn"
+resource_name = "spawning"
 step = 0.15
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -228,7 +228,7 @@ _data = {
 "blinking": SubResource("Animation_xkboe"),
 "hit_1": SubResource("Animation_dnrbr"),
 "hit_2": SubResource("Animation_fakpo"),
-"spawn": SubResource("Animation_2kkxm")
+"spawning": SubResource("Animation_2kkxm")
 }
 
 [node name="Player" type="CharacterBody2D"]
