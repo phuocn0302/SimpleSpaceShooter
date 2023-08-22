@@ -6,7 +6,8 @@ var BulletPath = preload("res://Scenes/enemy_bullet.tscn")
 var contact_damage: int = 1
 var can_shoot: bool = true
 
-@export var hp:int = 20
+@export var hp: int = 20
+@export var fire_rate: float = 0.3
 
 @onready var player = get_parent().get_parent().get_node("Player")
 
@@ -17,6 +18,7 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	$Rotator.rotate(-1 * delta)
+	$AnimationPlayer.play("breathing")
 	shoot()
 	if (hp <= 0):
 		die()
@@ -35,7 +37,7 @@ func shoot():
 		spawn_bullet(BulletPath,$Rotator/Gun4/ShootPos)
 		
 		can_shoot = false
-		await get_tree().create_timer(0.2).timeout
+		await get_tree().create_timer(fire_rate).timeout
 		can_shoot = true
 
 func die():
