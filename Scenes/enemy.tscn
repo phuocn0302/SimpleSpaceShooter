@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bskohvm3381m1"]
+[gd_scene load_steps=13 format=3 uid="uid://bskohvm3381m1"]
 
 [ext_resource type="Script" path="res://Scripts/enemy.gd" id="1_feknv"]
 [ext_resource type="Texture2D" uid="uid://cwhkebasj666p" path="res://Assets/Texture/Enemy.png" id="2_1msqv"]
@@ -149,6 +149,9 @@ turbulence_enabled = true
 turbulence_noise_scale = 1.0
 turbulence_noise_speed = Vector3(0.5, 0.5, 0.5)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_e6nlm"]
+radius = 76.0
+
 [node name="Enemy" type="Area2D"]
 collision_layer = 2
 collision_mask = 5
@@ -177,6 +180,11 @@ lifetime = 0.5
 [node name="Node2D" type="Node2D" parent="."]
 
 [node name="Marker2D" type="Marker2D" parent="Node2D"]
-position = Vector2(-5.315, 6.59)
+position = Vector2(-16, 0)
+
+[node name="PlayerDetecter" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetecter"]
+shape = SubResource("CircleShape2D_e6nlm")
 
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

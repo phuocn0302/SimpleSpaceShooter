@@ -4,10 +4,14 @@ extends Area2D
 var ExplosionPath = preload("res://Scenes/explosion.tscn")
 
 var contact_damage: int = 1
-var is_rotate : bool = true
+var is_rotate: bool = true
+
 
 @export var hp:int = 5
 @export var speed: float = 100
+
+@onready var player = get_parent().get_parent().get_node("Player")
+@onready var has_player: bool = get_parent().get_parent().has_node("Player")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -15,8 +19,12 @@ func _ready():
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-
 	$AnimationPlayer.play("vibrate")
+	silly_movement(delta)
+	if (hp <= 0):
+		die()
+
+func silly_movement(delta):
 	global_position.x -= speed * delta
 	global_position += ($Node2D/Marker2D.global_position - self.global_position).normalized()
 	if is_rotate == true:
@@ -24,8 +32,12 @@ func _process(delta):
 		is_rotate = false
 		await get_tree().create_timer(0.1).timeout
 		is_rotate = true
-	if (hp <= 0):
-		die()
+
+func follow_player(delta):
+	if has_player:
+		global_position += (player.global_position - global_position).normalized() * speed * delta
+	else:
+		global_position.x -= speed * delta
 
 func die():
 	var explosion = ExplosionPath.instantiate()
