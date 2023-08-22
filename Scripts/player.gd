@@ -18,7 +18,7 @@ var can_deal_contact_damage = true
 @onready var normal_shoot_pos = $NormalShootPos/ShootSpot
 
 func _ready():
-	anim_player.play("spawn")
+	anim_player.play("spawning")
 
 func _process(delta):
 	if (Input.is_action_pressed("ui_accept")):
