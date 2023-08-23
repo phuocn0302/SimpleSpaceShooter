@@ -16,7 +16,7 @@ func _ready():
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	$Rotator.rotate(-1 * delta)
+	$Rotator.rotate(-2 * delta)
 	shoot()
 	if (hp <= 0):
 		die()
@@ -26,6 +26,8 @@ func spawn_bullet(bullet_path, marker):
 	get_parent().add_child(bullet)
 	bullet.position = marker.global_position
 	bullet.rotation = marker.global_rotation
+#	if hp <= 10:
+#		bullet.follow()
 
 func shoot():
 	if can_shoot:

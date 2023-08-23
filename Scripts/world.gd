@@ -2,8 +2,9 @@ extends Node2D
 
 var PlayerPath = preload("res://Scenes/player.tscn")
 var EnemyPath = preload("res://Scenes/enemy.tscn")
+var SwarmPath = preload("res://Scenes/swarm_enemy.tscn")
 
-@export var enemy_spawn_rate = 1.0 # Per second
+@export var enemy_spawn_rate = 5.0 # Per second
 
 var enemy_can_spawn = true
 
@@ -15,8 +16,8 @@ func _ready():
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-#	if enemy_can_spawn:
-#		spawn_enemy_random()
+	if enemy_can_spawn:
+		spawn_enemy_random()
 	pass
 
 func spawn_enemy():
@@ -32,7 +33,7 @@ func spawn_enemy():
 	enemy_can_spawn = false
 
 func spawn_enemy_random():
-	var enemy = EnemyPath.instantiate()
+	var enemy = SwarmPath.instantiate()
 
 	var enemy_container = $EnemyContainer
 	enemy_container.add_child(enemy)

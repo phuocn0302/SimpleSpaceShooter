@@ -39,7 +39,7 @@ polygon = PackedVector2Array(0, 180, -28, 208, -19, -20, 388, -20, 388, 204, -27
 position = Vector2(50, 90)
 
 [node name="EnemySpawnPos" type="Node2D" parent="."]
-position = Vector2(10, 0)
+position = Vector2(-25.65, 0)
 
 [node name="Marker2D3" type="Marker2D" parent="EnemySpawnPos"]
 position = Vector2(350, 30)

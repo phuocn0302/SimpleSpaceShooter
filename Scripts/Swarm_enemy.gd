@@ -14,13 +14,22 @@ func _ready():
 func _process(delta):
 	
 	var enemy = EnemyPath.instantiate()
-	if ct < 6 && enemy_can_spawn:
+		#ct = 6 for circle
+		#ct = 8 for square
+	if ct < 8 && enemy_can_spawn:
 		add_child(enemy)
 		enemy_can_spawn = false
-		await get_tree().create_timer(0.4).timeout
+		#0.484 for square swarm
+		#0.53 for circle swarm
+		await get_tree().create_timer(0.484).timeout
 		enemy_can_spawn = true
 		enemy.swarm_movement()
+		enemy.swarm_dis()
 		ct += 1
-	if ct >= 6:
-		self.global_position.x -= 10 * delta
+	if ct >= 8:
+		self.global_position.x -= 100 * delta
 	print(ct)
+
+
+func _on_visible_on_screen_notifier_2d_screen_exited():
+	queue_free()

@@ -6,6 +6,7 @@ var contact_damage: int = 1
 var is_rotate: bool = true
 var is_chasing: bool = false
 var is_swarm: bool = false
+var can_dis: bool = true
 
 @export var hp:int = 5
 @export var speed: float = 100
@@ -50,13 +51,21 @@ func take_damage(damage):
 	hp -= damage
 
 func _on_visible_on_screen_notifier_2d_screen_exited():
-	queue_free()
+	if can_dis:
+		queue_free()
 
 func swarm_movement():
 	is_swarm = true
-	global_position += ($Node2D/Marker2D.global_position - self.global_position).normalized()
+	global_position += ($Node2D/Marker2D.global_position - self.global_position).normalized() * 3
 	if is_rotate == true:
-		$Node2D.rotate(-0.3)
+		#-PI/2 for square swarm
+		#-1 for circle swarm
+		$Node2D.rotate(-PI/2)
 		is_rotate = false
-		await get_tree().create_timer(0.1).timeout
+		#1 for square swarm
+		#0.5 for circle swarm
+		await get_tree().create_timer(1).timeout
 		is_rotate = true
+
+func swarm_dis():
+	can_dis = false
