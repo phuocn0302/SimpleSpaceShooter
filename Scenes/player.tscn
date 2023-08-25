@@ -1,19 +1,138 @@
-[gd_scene load_steps=15 format=3 uid="uid://ck2orlq2o5qmb"]
+[gd_scene load_steps=18 format=3 uid="uid://ck2orlq2o5qmb"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_2n5gr"]
-[ext_resource type="Texture2D" uid="uid://dohdccsjbso4t" path="res://Assets/Texture/Ship.png" id="2_8ky4p"]
-[ext_resource type="Shader" path="res://Shaders/blink.gdshader" id="2_7631b"]
 [ext_resource type="Texture2D" uid="uid://ea7yn7iawkw3" path="res://Assets/Texture/Ship Particle.png" id="3_ukbv1"]
+[ext_resource type="Texture2D" uid="uid://5po6gvwo0aer" path="res://Assets/Texture/SmallShip-sheet.png" id="4_pf4u5"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_k3m1i"]
-shader = ExtResource("2_7631b")
-shader_parameter/hit_opacity = 0.0
+[sub_resource type="AtlasTexture" id="AtlasTexture_t0je3"]
+atlas = ExtResource("4_pf4u5")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f5a0m"]
+atlas = ExtResource("4_pf4u5")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_efovp"]
+atlas = ExtResource("4_pf4u5")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x18ul"]
+atlas = ExtResource("4_pf4u5")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4h7ko"]
+atlas = ExtResource("4_pf4u5")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qsuqx"]
+animations = [{
+"frames": [{
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_t0je3")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_f5a0m")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_efovp")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_x18ul")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_4h7ko")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_3tb6o"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../SpawnEffect:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_0phdq"]
+resource_name = "hit"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [true, false, true, false, true, false, true]
+}
+
+[sub_resource type="Animation" id="Animation_nph4m"]
+resource_name = "spawn"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../SpawnEffect:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [true, false, true, false, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_drjby"]
+_data = {
+"RESET": SubResource("Animation_3tb6o"),
+"hit": SubResource("Animation_0phdq"),
+"spawn": SubResource("Animation_nph4m")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hxvpv"]
+radius = 4.12311
 
 [sub_resource type="Curve" id="Curve_bueo5"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_yubnx"]
+[sub_resource type="CurveTexture" id="CurveTexture_2gm8y"]
 curve = SubResource("Curve_bueo5")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_8lr10"]
@@ -26,210 +145,12 @@ angular_velocity_min = -180.0
 angular_velocity_max = 180.0
 orbit_velocity_min = 0.0
 orbit_velocity_max = 0.0
-scale_min = 2.0
-scale_max = 2.0
-scale_curve = SubResource("CurveTexture_yubnx")
+scale_min = 1.5
+scale_max = 1.5
+scale_curve = SubResource("CurveTexture_2gm8y")
 turbulence_enabled = true
 turbulence_noise_scale = 1.0
 turbulence_noise_speed = Vector3(0.5, 0.5, 0.5)
-
-[sub_resource type="Animation" id="Animation_df3o2"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:material:shader_parameter/hit_opacity")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite2D:texture")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("2_8ky4p")]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Sprite2D:visible")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("SpawnEffect:emitting")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-
-[sub_resource type="Animation" id="Animation_xkboe"]
-resource_name = "blinking"
-length = 0.3
-loop_mode = 1
-step = 0.05
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("2_8ky4p")]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.15, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [true, false, true]
-}
-
-[sub_resource type="Animation" id="Animation_dnrbr"]
-resource_name = "hit_1"
-length = 0.4
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:material:shader_parameter/hit_opacity")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 0,
-"values": [0.0, 1.0, 0.0, 1.0, 0.0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 0,
-"values": [0.0, -0.349066, 0.349066, -0.349066, 0.0]
-}
-
-[sub_resource type="Animation" id="Animation_fakpo"]
-resource_name = "hit_2"
-length = 0.4
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:material:shader_parameter/hit_opacity")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 0,
-"values": [0.0, 1.0, 0.0, 1.0, 0.0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 0,
-"values": [0.0, 0.349066, -0.349066, 0.349066, 0.0]
-}
-
-[sub_resource type="Animation" id="Animation_2kkxm"]
-resource_name = "spawning"
-step = 0.15
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("2_8ky4p")]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.15, 0.3, 0.45, 0.6, 0.75, 0.9),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [true, false, true, false, true, false, true]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("SpawnEffect:emitting")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_3yfmh"]
-_data = {
-"RESET": SubResource("Animation_df3o2"),
-"blinking": SubResource("Animation_xkboe"),
-"hit_1": SubResource("Animation_dnrbr"),
-"hit_2": SubResource("Animation_fakpo"),
-"spawning": SubResource("Animation_2kkxm")
-}
 
 [node name="Player" type="CharacterBody2D"]
 collision_mask = 514
@@ -238,7 +159,7 @@ script = ExtResource("1_2n5gr")
 
 [node name="SpawnEffect" type="CPUParticles2D" parent="."]
 emitting = false
-amount = 90
+amount = 50
 lifetime = 0.5
 one_shot = true
 speed_scale = 1.65
@@ -250,15 +171,21 @@ gravity = Vector2(0, 0)
 radial_accel_min = -100.0
 radial_accel_max = -100.0
 
-[node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
-polygon = PackedVector2Array(-14, -15, 0, -15, 8, -7, 11, -7, 15, -2, 15, 2, 11, 7, 8, 7, 0, 15, -14, 15, -11, 4, -11, -4)
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_qsuqx")
+frame_progress = 0.447042
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-material = SubResource("ShaderMaterial_k3m1i")
-texture = ExtResource("2_8ky4p")
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../AnimatedSprite2D")
+libraries = {
+"": SubResource("AnimationLibrary_drjby")
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_hxvpv")
 
 [node name="FireEffect" type="GPUParticles2D" parent="."]
-position = Vector2(-16, 0)
+position = Vector2(-10, 0)
 amount = 15
 process_material = SubResource("ParticleProcessMaterial_8lr10")
 texture = ExtResource("3_ukbv1")
@@ -267,17 +194,12 @@ lifetime = 0.5
 [node name="Hitbox" type="Area2D" parent="."]
 collision_mask = 2
 
-[node name="HitboxShape" type="CollisionPolygon2D" parent="Hitbox"]
-polygon = PackedVector2Array(-14, -15, 0, -15, 8, -7, 11, -7, 15, -2, 15, 2, 11, 7, 8, 7, 0, 15, -14, 15, -11, 4, -11, -4)
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_3yfmh")
-}
+[node name="HitboxShape" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CircleShape2D_hxvpv")
 
 [node name="NormalShootPos" type="Node2D" parent="."]
 
 [node name="ShootSpot" type="Marker2D" parent="NormalShootPos"]
-position = Vector2(20, 0)
+position = Vector2(12, 0)
 
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]

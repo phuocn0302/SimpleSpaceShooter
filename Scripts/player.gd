@@ -4,12 +4,11 @@ extends CharacterBody2D
 var BulletPath = preload("res://Scenes/bullet.tscn")
 var ExplosionPath = preload("res://Scenes/explosion.tscn")
 
-var iframe_time: float = 0.3
-
 @export var speed: float = 200.0
 @export var fire_rate: float = 0.1 # Per second
 @export var hp: int = 3
 
+var iframe_timer: float = 0.6
 var can_shoot = true
 var can_take_damage = true
 var can_deal_contact_damage = true
@@ -18,9 +17,12 @@ var can_deal_contact_damage = true
 @onready var normal_shoot_pos = $NormalShootPos/ShootSpot
 
 func _ready():
-	anim_player.play("spawning")
+	anim_player.play("spawn")
+	iframe()
+
 
 func _process(delta):
+	$AnimatedSprite2D.play("default")
 	if (Input.is_action_pressed("ui_accept")):
 		shoot()
 	if (hp <=0):
@@ -43,16 +45,15 @@ func shoot():
 func iframe():
 	can_take_damage = false
 	can_deal_contact_damage = false
-	await get_tree().create_timer(iframe_time).timeout
+	await get_tree().create_timer(iframe_timer).timeout
+	anim_player.play("RESET")
 	can_take_damage = true
 	can_deal_contact_damage = true
 
 func take_damage(damage):
 	if can_take_damage:
 		hp -= damage
-		var hit_anim = ["hit_1", "hit_2"]
-		var rand_hit = hit_anim[randi()% hit_anim.size()]
-		anim_player.play(rand_hit)
+		anim_player.play("hit")
 		iframe()
 
 func die():

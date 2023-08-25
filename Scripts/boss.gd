@@ -6,7 +6,7 @@ var BulletPath = preload("res://Scenes/enemy_bullet.tscn")
 var contact_damage: int = 1
 var can_shoot: bool = true
 
-@export var hp: int = 20
+@export var hp: int = 200
 @export var fire_rate: float = 0.3
 
 @onready var player = get_tree().current_scene.get_node("Player")
@@ -17,25 +17,28 @@ func _ready():
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	$Rotator.rotate(-1 * delta)
-	$AnimationPlayer.play("breathing")
 	shoot()
 	if (hp <= 0):
 		die()
 
-func spawn_bullet(bullet_path, marker):
+func spawn_normal_bullet(bullet_path, marker):
 	var bullet = bullet_path.instantiate()
 	get_parent().add_child(bullet)
 	bullet.position = marker.global_position
-	bullet.rotation = marker.global_rotation
+
+func spawn_chasing_bullet(bullet_path, marker):
+	if get_parent().get_parent().has_node("Player"):
+		var bullet = bullet_path.instantiate()
+		get_parent().add_child(bullet)
+
 
 func shoot():
 	if can_shoot:
-		spawn_bullet(BulletPath,$Rotator/Gun1/ShootPos)
-		spawn_bullet(BulletPath,$Rotator/Gun2/ShootPos)
-		spawn_bullet(BulletPath,$Rotator/Gun3/ShootPos)
-		spawn_bullet(BulletPath,$Rotator/Gun4/ShootPos)
-		
+		spawn_normal_bullet(BulletPath, $MainGun)
+		spawn_normal_bullet(BulletPath, $SubGun1/SubGunPos1)
+		spawn_normal_bullet(BulletPath, $SubGun1/SubGunPos2)
+		spawn_normal_bullet(BulletPath, $SubGun2/SubGunPos1)
+		spawn_normal_bullet(BulletPath, $SubGun2/SubGunPos2)
 		can_shoot = false
 		await get_tree().create_timer(fire_rate).timeout
 		can_shoot = true
