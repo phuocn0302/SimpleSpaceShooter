@@ -7,6 +7,7 @@ var is_rotate: bool = true
 var is_chasing: bool = false
 var is_swarm: bool = false
 var can_dis: bool = true
+var is_silly: bool = false
 
 @export var hp:int = 5
 @export var speed: float = 100
@@ -22,13 +23,16 @@ func _process(delta):
 	$AnimationPlayer.play("vibrate")
 	if is_swarm:
 		swarm_movement()
+	if is_silly:
+		silly_movement(delta)
 	if (hp <= 0):
 		die()
-
+	if !$Node2D/RayCast2D.is_colliding():
+		is_silly = true
 func silly_movement(delta):
 	if not is_chasing:
 		global_position.x -= speed * delta
-		global_position += ($Node2D/Marker2D.global_position - self.global_position).normalized()
+		global_position += ($Node2D/RayCast2D.global_position - self.global_position).normalized()
 		if is_rotate == true:
 			$Node2D.rotate(randf_range(-1.5,1.5))
 			is_rotate = false
@@ -55,8 +59,8 @@ func _on_visible_on_screen_notifier_2d_screen_exited():
 		queue_free()
 
 func swarm_movement():
-	is_swarm = true
-	global_position += ($Node2D/Marker2D.global_position - self.global_position).normalized() * 3
+
+	global_position += ($Node2D/RayCast2D.global_position - self.global_position).normalized()
 	if is_rotate == true:
 		#-PI/2 for square swarm
 		#-1 for circle swarm

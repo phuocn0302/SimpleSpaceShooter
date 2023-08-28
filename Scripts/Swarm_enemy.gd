@@ -23,7 +23,8 @@ func _process(delta):
 		#0.53 for circle swarm
 		await get_tree().create_timer(0.484).timeout
 		enemy_can_spawn = true
-		enemy.swarm_movement()
+		#enemy.swarm_movement()
+		enemy.is_swarm = true
 		enemy.swarm_dis()
 		ct += 1
 	if ct >= 8:

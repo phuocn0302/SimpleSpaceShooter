@@ -16,6 +16,7 @@ var can_deal_contact_damage = true
 
 @onready var anim_player = $AnimationPlayer
 @onready var normal_shoot_pos = $NormalShootPos/ShootSpot
+@onready var hitbox = $Hitbox
 
 func _ready():
 	anim_player.play("spawning")

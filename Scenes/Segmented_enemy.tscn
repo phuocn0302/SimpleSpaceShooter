@@ -1,0 +1,39 @@
+[gd_scene load_steps=4 format=3 uid="uid://myypwwsqy8rj"]
+
+[ext_resource type="Script" path="res://Scripts/Segmented_enemy.gd" id="1_gv44x"]
+[ext_resource type="Texture2D" uid="uid://bdset7qmkserh" path="res://Assets/Texture/Segment_body.png" id="2_8p2uc"]
+[ext_resource type="Texture2D" uid="uid://cyxxu4kmp8mb6" path="res://Assets/Texture/Segment_head.png" id="3_7731g"]
+
+[node name="Segment_enemy" type="Area2D" groups=["Enemy"]]
+position = Vector2(139, 74)
+rotation = 3.14159
+collision_layer = 2
+collision_mask = 3
+script = ExtResource("1_gv44x")
+
+[node name="sprite" type="Node2D" parent="."]
+rotation = 3.14159
+
+[node name="SegmentHead" type="Sprite2D" parent="sprite" groups=["segment"]]
+texture = ExtResource("3_7731g")
+offset = Vector2(13.965, 0)
+
+[node name="SegmentBody" type="Sprite2D" parent="sprite" groups=["segment"]]
+texture = ExtResource("2_8p2uc")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(0, -0.550003)
+polygon = PackedVector2Array(-9.33499, -4.24996, -7.25999, -5.595, -6.25999, -6.595, -6.25999, -7.595, -4.25999, -7.595, -4.25999, -8.595, 2.74001, -8.595, 3.74001, -7.595, 5.74001, -7.595, 8.82, -4.26, 8.795, 4.67, 7.864, 5.576, 5.74001, 7.405, 2.74001, 8.405, -3.25999, 8.405, -6.25999, 7.405, -7.25999, 5.405, -9.33501, 4.75004)
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="RayCast2D" type="RayCast2D" parent="Node2D"]
+visible = false
+position = Vector2(-14.855, -0.315)
+target_position = Vector2(-6, 0)
+
+[node name="Marker2D" type="Marker2D" parent="Node2D"]
+position = Vector2(-13.47, -0.315)
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="area_exited" from="." to="." method="_on_area_exited"]
