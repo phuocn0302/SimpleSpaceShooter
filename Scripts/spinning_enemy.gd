@@ -5,22 +5,28 @@ var BulletPath = preload("res://Scenes/enemy_bullet.tscn")
 
 var contact_damage: int = 1
 var can_shoot: bool = true
+var rotate_dir: int  = -1
+var current_hp: float = 50
 
-@export var hp: int = 20
-@export var fire_rate: float = 0.3
+@export var fire_rate: float = 0.1
+@export var rotate_speed: float = 2
+@export var max_hp: float = 50
 
 @onready var player = get_tree().current_scene.get_node("Player")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	current_hp = max_hp
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	$Rotator.rotate(-1 * delta)
+	$Rotator.rotate(rotate_dir * rotate_speed * delta)
 	$AnimationPlayer.play("breathing")
 	shoot()
-	if (hp <= 0):
+	if current_hp <= max_hp/2:
+		rotate_dir = 1
+		rotate_speed += .1
+	if (current_hp <= 0):
 		die()
 
 func spawn_bullet(bullet_path, marker):
@@ -48,7 +54,7 @@ func die():
 	queue_free()
 
 func take_damage(damage):
-	hp -= damage
+	current_hp -= damage
 
 func _on_visible_on_screen_notifier_2d_screen_exited():
 	queue_free()

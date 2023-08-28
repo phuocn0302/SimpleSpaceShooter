@@ -1,8 +1,14 @@
-[gd_scene load_steps=18 format=3 uid="uid://ck2orlq2o5qmb"]
+[gd_scene load_steps=20 format=3 uid="uid://ck2orlq2o5qmb"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_2n5gr"]
+[ext_resource type="Shader" path="res://Shaders/chromatic.gdshader" id="3_kqefy"]
 [ext_resource type="Texture2D" uid="uid://ea7yn7iawkw3" path="res://Assets/Texture/Ship Particle.png" id="3_ukbv1"]
 [ext_resource type="Texture2D" uid="uid://5po6gvwo0aer" path="res://Assets/Texture/SmallShip-sheet.png" id="4_pf4u5"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qu4js"]
+shader = ExtResource("3_kqefy")
+shader_parameter/apply = false
+shader_parameter/amount = 1.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_t0je3"]
 atlas = ExtResource("4_pf4u5")
@@ -172,6 +178,7 @@ radial_accel_min = -100.0
 radial_accel_max = -100.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_qu4js")
 sprite_frames = SubResource("SpriteFrames_qsuqx")
 frame_progress = 0.447042
 
