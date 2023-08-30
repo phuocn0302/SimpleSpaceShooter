@@ -1,9 +1,14 @@
 shader_type canvas_item;
 
-uniform float hit_opacity = 0;
+uniform bool active = false;
 
-void fragment()
-{
- COLOR.rgb = texture(TEXTURE, UV).rgb * (1.0 - hit_opacity) + vec3(1,1,1) * hit_opacity;
- COLOR.a = texture(TEXTURE, UV).a ;
+void fragment() {
+	vec4 previous_color = texture(TEXTURE, UV);
+	vec4 white_color = vec4(1.0, 1.0, 1.0, previous_color.a);
+	vec4 new_color = previous_color;
+	if (active == true)
+	{
+		new_color = white_color;
+	}
+	COLOR = new_color;
 }

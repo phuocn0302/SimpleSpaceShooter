@@ -1,99 +1,70 @@
-[gd_scene load_steps=20 format=3 uid="uid://ck2orlq2o5qmb"]
+[gd_scene load_steps=14 format=3 uid="uid://ck2orlq2o5qmb"]
 
+[ext_resource type="Shader" path="res://Shaders/blink.gdshader" id="1_1yhje"]
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_2n5gr"]
-[ext_resource type="Shader" path="res://Shaders/chromatic.gdshader" id="3_kqefy"]
 [ext_resource type="Texture2D" uid="uid://ea7yn7iawkw3" path="res://Assets/Texture/Ship Particle.png" id="3_ukbv1"]
-[ext_resource type="Texture2D" uid="uid://5po6gvwo0aer" path="res://Assets/Texture/SmallShip-sheet.png" id="4_pf4u5"]
+[ext_resource type="SpriteFrames" uid="uid://cr7nrws1geubs" path="res://Scripts/player.tres" id="4_31ege"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_qu4js"]
-shader = ExtResource("3_kqefy")
-shader_parameter/apply = false
-shader_parameter/amount = 1.0
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_t0je3"]
-atlas = ExtResource("4_pf4u5")
-region = Rect2(0, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_f5a0m"]
-atlas = ExtResource("4_pf4u5")
-region = Rect2(16, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_efovp"]
-atlas = ExtResource("4_pf4u5")
-region = Rect2(32, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_x18ul"]
-atlas = ExtResource("4_pf4u5")
-region = Rect2(48, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_4h7ko"]
-atlas = ExtResource("4_pf4u5")
-region = Rect2(64, 0, 16, 16)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_qsuqx"]
-animations = [{
-"frames": [{
-"duration": 0.5,
-"texture": SubResource("AtlasTexture_t0je3")
-}, {
-"duration": 0.5,
-"texture": SubResource("AtlasTexture_f5a0m")
-}, {
-"duration": 0.5,
-"texture": SubResource("AtlasTexture_efovp")
-}, {
-"duration": 0.5,
-"texture": SubResource("AtlasTexture_x18ul")
-}, {
-"duration": 0.5,
-"texture": SubResource("AtlasTexture_4h7ko")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8fhny"]
+shader = ExtResource("1_1yhje")
+shader_parameter/active = false
 
 [sub_resource type="Animation" id="Animation_3tb6o"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:visible")
+tracks/0/path = NodePath("../SpawnEffect:emitting")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../SpawnEffect:emitting")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [false]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
 
 [sub_resource type="Animation" id="Animation_0phdq"]
 resource_name = "hit"
 length = 0.6
+step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:visible")
+tracks/0/path = NodePath("..:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [true, false, true, false, true, false, true]
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.349066, -0.349066, 0.349066, -0.349066, 0.349066, -0.349066, 0.349066, -0.349066, 0.349066, -0.349066, 0.349066, -0.349066, 0.349066]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0.6, 0.1],
+"method": &"flash"
+}]
 }
 
 [sub_resource type="Animation" id="Animation_nph4m"]
@@ -111,17 +82,19 @@ tracks/0/keys = {
 "update": 1,
 "values": [true]
 }
-tracks/1/type = "value"
+tracks/1/type = "method"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath(".:visible")
+tracks/1/path = NodePath("..")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
-"update": 1,
-"values": [true, false, true, false, true]
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0.5, 0.1],
+"method": &"flash"
+}]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_drjby"]
@@ -178,9 +151,9 @@ radial_accel_min = -100.0
 radial_accel_max = -100.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-material = SubResource("ShaderMaterial_qu4js")
-sprite_frames = SubResource("SpriteFrames_qsuqx")
-frame_progress = 0.447042
+material = SubResource("ShaderMaterial_8fhny")
+sprite_frames = ExtResource("4_31ege")
+frame_progress = 0.281611
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../AnimatedSprite2D")

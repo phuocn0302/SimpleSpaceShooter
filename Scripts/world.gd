@@ -17,7 +17,8 @@ func _ready():
 func _process(delta):
 #	if enemy_can_spawn:
 #		spawn_enemy_random()
-	pass
+	if Input.is_action_pressed("ui_accept"):
+		get_tree().reload_current_scene()
 
 func spawn_enemy():
 	var spawn_node = $EnemySpawnPos.get_children()

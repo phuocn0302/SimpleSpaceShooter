@@ -1,0 +1,46 @@
+[gd_resource type="SpriteFrames" load_steps=7 format=3 uid="uid://cr7nrws1geubs"]
+
+[ext_resource type="Texture2D" uid="uid://5po6gvwo0aer" path="res://Assets/Texture/SmallShip-sheet.png" id="1_kjmwl"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t0je3"]
+atlas = ExtResource("1_kjmwl")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f5a0m"]
+atlas = ExtResource("1_kjmwl")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_efovp"]
+atlas = ExtResource("1_kjmwl")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x18ul"]
+atlas = ExtResource("1_kjmwl")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4h7ko"]
+atlas = ExtResource("1_kjmwl")
+region = Rect2(64, 0, 16, 16)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_t0je3")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_f5a0m")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_efovp")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_x18ul")
+}, {
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_4h7ko")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]

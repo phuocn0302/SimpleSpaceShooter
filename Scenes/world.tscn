@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://chuti8pmchocr"]
 
 [ext_resource type="Script" path="res://Scripts/world.gd" id="1_wdwe3"]
-[ext_resource type="PackedScene" uid="uid://c76qekpnedfev" path="res://Scenes/spinning_enemy.tscn" id="2_mcf3n"]
+[ext_resource type="PackedScene" uid="uid://c76qekpnedfev" path="res://Scenes/spinning_enemy.tscn" id="3_kf7j4"]
 [ext_resource type="Script" path="res://Scripts/Camera2D.gd" id="3_t2yux"]
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_r1ldr"]
@@ -53,9 +53,9 @@ position = Vector2(350, 150)
 
 [node name="EnemyContainer" type="Node2D" parent="."]
 
-[node name="SpinningEnemy" parent="." instance=ExtResource("2_mcf3n")]
-position = Vector2(283, 86)
-
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(180, 90)
 script = ExtResource("3_t2yux")
+
+[node name="SpinningEnemy" parent="." instance=ExtResource("3_kf7j4")]
+position = Vector2(297, 87)
