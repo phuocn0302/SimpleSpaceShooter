@@ -1,6 +1,6 @@
 extends AnimatedSprite2D
 
-var ghost_duration: float = 0.7
+var ghost_duration: float = 0.5
 
 func _ready():
 	var tween:Tween = get_tree().create_tween() #Creates a Tween, as far as I know Tween as a node has been removed
