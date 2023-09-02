@@ -1,8 +1,0 @@
-[gd_scene load_steps=3 format=3 uid="uid://bruiqyh5nm33i"]
-
-[ext_resource type="Script" path="res://Scripts/DashGhost.gd" id="1_1xu6i"]
-[ext_resource type="SpriteFrames" uid="uid://cr7nrws1geubs" path="res://Scripts/player.tres" id="1_5h0qg"]
-
-[node name="DashGhost" type="AnimatedSprite2D"]
-sprite_frames = ExtResource("1_5h0qg")
-script = ExtResource("1_1xu6i")

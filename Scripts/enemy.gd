@@ -1,26 +1,25 @@
 extends Area2D
 
-var ExplosionPath = preload("res://Scenes/explosion.tscn")
+var ExplosionPath = preload("res://Scenes/Particles/explosion.tscn")
 
-var contact_damage: int = 1
-var is_rotate: bool = true
-var is_chasing: bool = false
-
-@export var hp:int = 5
+@export var max_hp: float = 5
 @export var speed: float = 100
 
 @onready var player = get_tree().current_scene.get_node("Player")
 
+var current_hp: float
+var contact_damage: float = 1
+var is_rotate: bool = true
+var is_chasing: bool = false
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	current_hp = max_hp
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	$AnimationPlayer.play("vibrate")
 	global_position.x -= speed * delta
-	if (hp <= 0):
-		die()
 
 func silly_movement(delta):
 	if not is_chasing:
@@ -38,14 +37,13 @@ func follow_player(delta):
 		global_position += global_position.direction_to(player.global_position) * speed * delta
 
 func die():
-	var explosion = ExplosionPath.instantiate()
-	get_parent().add_child(explosion)
-	explosion.global_position = global_position
-	
+	GlobalFunction.instantiate_scene(ExplosionPath, global_position, get_parent())
 	queue_free()
 
 func take_damage(damage):
-	hp -= damage
+	current_hp -= damage
+	if (current_hp <= 0):
+		die()
 
 func _on_visible_on_screen_notifier_2d_screen_exited():
 	queue_free()

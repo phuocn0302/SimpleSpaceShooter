@@ -58,4 +58,4 @@ position = Vector2(180, 90)
 script = ExtResource("3_t2yux")
 
 [node name="SpinningEnemy" parent="." instance=ExtResource("3_kf7j4")]
-position = Vector2(297, 87)
+position = Vector2(305, 89)

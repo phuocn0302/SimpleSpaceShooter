@@ -1,6 +1,9 @@
 extends Node2D
 
+var GhostPath = preload("res://Scenes/Player/dash_ghost.tscn")
+
 @export var dash_multipler: float = 2.0
+@export var player: CharacterBody2D
 
 var dash_dur: float = 0.15
 var dash_cd: float = 1.0
@@ -9,9 +12,6 @@ var can_dash = true
 var is_dashing = false
 var can_flash = true
 
-@export var player: CharacterBody2D
-
-@onready var GhostPath = preload("res://Scenes/dash_ghost.tscn")
 
 func _ready():
 	set_process(false)
