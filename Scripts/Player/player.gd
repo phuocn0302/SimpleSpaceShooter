@@ -13,7 +13,6 @@ var FlashShader = preload("res://Shaders/flash.gdshader")
 @onready var anim_player = $AnimationPlayer
 @onready var anim_sprite = $AnimatedSprite2D
 @onready var normal_shoot_pos = $NormalShootPos/ShootSpot
-@onready var camera = get_tree().current_scene.get_node("Camera2D")
 
 var iframe_dur: float = 0.6
 var player_dir: Vector2 = Vector2.ZERO
@@ -98,6 +97,6 @@ func die():
 
 func _on_hitbox_area_entered(area):
 	if area.is_in_group("Enemy"):
-		take_damage(1)
-		if can_deal_contact_damage: 
+		if can_deal_contact_damage:
 			area.die()
+		take_damage(1)
