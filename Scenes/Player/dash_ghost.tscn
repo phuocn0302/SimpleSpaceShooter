@@ -6,3 +6,8 @@
 [node name="DashGhost" type="AnimatedSprite2D"]
 sprite_frames = ExtResource("1_5h0qg")
 script = ExtResource("1_1xu6i")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
