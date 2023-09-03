@@ -1,8 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://chuti8pmchocr"]
+[gd_scene load_steps=8 format=3 uid="uid://chuti8pmchocr"]
 
 [ext_resource type="Script" path="res://Scripts/world.gd" id="1_wdwe3"]
+[ext_resource type="Shader" path="res://Shaders/change_color.gdshader" id="3_13uas"]
 [ext_resource type="PackedScene" uid="uid://c76qekpnedfev" path="res://Scenes/spinning_enemy.tscn" id="3_kf7j4"]
 [ext_resource type="Script" path="res://Scripts/Camera2D.gd" id="3_t2yux"]
+[ext_resource type="Script" path="res://Scripts/ColorPalette.gd" id="4_hhhkb"]
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_r1ldr"]
 emission_shape = 3
@@ -15,13 +17,28 @@ orbit_velocity_min = 0.0
 orbit_velocity_max = 0.0
 scale_max = 3.0
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ixaiv"]
+shader = ExtResource("3_13uas")
+shader_parameter/bright_color = Color(1, 1, 1, 1)
+shader_parameter/dark_color = Color(0, 0, 0, 1)
+
 [node name="World" type="Node2D"]
 script = ExtResource("1_wdwe3")
+
+[node name="Background" type="ColorRect" parent="."]
+offset_left = -157.0
+offset_top = -116.0
+offset_right = 203.0
+offset_bottom = 64.0
+scale = Vector2(2, 2)
+color = Color(0, 0, 0, 1)
+metadata/_edit_lock_ = true
 
 [node name="CPUParticles2D" type="GPUParticles2D" parent="."]
 position = Vector2(360, 90)
 amount = 10
 process_material = SubResource("ParticleProcessMaterial_r1ldr")
+metadata/_edit_lock_ = true
 
 [node name="Bound" type="StaticBody2D" parent="."]
 collision_layer = 512
@@ -30,32 +47,45 @@ collision_mask = 0
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Bound"]
 polygon = PackedVector2Array(0, 180, -28, 208, -19, -20, 388, -20, 388, 204, -27, 213, 0, 180, 360, 180, 360, 0, 0, 0)
 
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(180, 90)
+script = ExtResource("3_t2yux")
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Camera2D"]
+layer = 0
+
+[node name="ColorPalette" type="ColorRect" parent="Camera2D/CanvasLayer"]
+material = SubResource("ShaderMaterial_ixaiv")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_hhhkb")
+
 [node name="PlayerSpawn" type="Marker2D" parent="."]
 position = Vector2(50, 90)
 
 [node name="EnemySpawnPos" type="Node2D" parent="."]
-position = Vector2(10, 0)
 
 [node name="Marker2D3" type="Marker2D" parent="EnemySpawnPos"]
-position = Vector2(350, 30)
+position = Vector2(360, 30)
 
 [node name="Marker2D2" type="Marker2D" parent="EnemySpawnPos"]
-position = Vector2(350, 60)
+position = Vector2(360, 60)
 
 [node name="Marker2D1" type="Marker2D" parent="EnemySpawnPos"]
-position = Vector2(350, 90)
+position = Vector2(360, 90)
 
 [node name="Marker2D4" type="Marker2D" parent="EnemySpawnPos"]
-position = Vector2(350, 120)
+position = Vector2(360, 120)
 
 [node name="Marker2D5" type="Marker2D" parent="EnemySpawnPos"]
-position = Vector2(350, 150)
+position = Vector2(360, 150)
 
 [node name="EnemyContainer" type="Node2D" parent="."]
 
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(180, 90)
-script = ExtResource("3_t2yux")
-
-[node name="SpinningEnemy" parent="." instance=ExtResource("3_kf7j4")]
-position = Vector2(305, 89)
+[node name="SpinningEnemy" parent="EnemyContainer" instance=ExtResource("3_kf7j4")]
+position = Vector2(283, 101)
