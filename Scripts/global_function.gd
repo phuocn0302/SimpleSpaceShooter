@@ -12,3 +12,7 @@ func instantiate_scene(node_path, pos, add_to):
 	node.global_position = pos
 	add_to.add_child(node)
 	return node
+
+func check_player():
+	return get_tree().current_scene.get_node_or_null("Player")
+

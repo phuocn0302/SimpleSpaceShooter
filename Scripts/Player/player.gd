@@ -8,11 +8,11 @@ var FlashShader = preload("res://Shaders/flash.gdshader")
 @export var speed: float = 9000.0
 @export var dash_multipler: float = 2.0
 @export var fire_rate: float = 0.2 # Per second
-@export var max_hp: int = 3
 
 @onready var anim_player = $AnimationPlayer
 @onready var anim_sprite = $AnimatedSprite2D
 @onready var normal_shoot_pos = $NormalShootPos/ShootSpot
+@onready var hitbox_component = $HitboxComponent
 
 var iframe_dur: float = 0.6
 var player_dir: Vector2 = Vector2.ZERO
@@ -21,13 +21,10 @@ var current_hp: int
 
 var can_move = true
 var can_shoot = true
-var can_take_damage = true
-var can_deal_contact_damage = true
 var can_flash = true
 
 
 func _ready():
-	current_hp = max_hp
 	anim_player.play("spawn")
 	iframe(iframe_dur)
 
@@ -55,25 +52,10 @@ func shoot():
 		can_shoot = true
 
 func iframe(duration):
-	can_take_damage = false
-	can_deal_contact_damage = false
+	hitbox_component.get_node("CollisionShape2D").set_deferred("disabled",true)
 	await get_tree().create_timer(duration).timeout
-	can_take_damage = true
-	can_deal_contact_damage = true
-	
+	hitbox_component.get_node("CollisionShape2D").set_deferred("disabled",false)
 	anim_player.play("RESET")
-
-func take_damage(damage):
-	if can_take_damage:
-		current_hp -= damage
-		iframe(iframe_dur)
-		
-		anim_player.play("hit")
-		GlobalFunction.camera.shake(0.5,1)
-		GlobalFunction.freeze_frame(0.1, 0.3)
-		
-	if current_hp <=0:
-		die()
 
 func flash(flash_dur: float, flash_interval: float):
 	can_flash = true
@@ -89,14 +71,8 @@ func flashing(interval):
 		await get_tree().create_timer(interval).timeout
 		flashing(interval)
 
-func die():
-	GlobalFunction.instantiate_scene(ExplosionPath, global_position, get_parent())
-	GlobalFunction.camera.shake(0,1)
-	queue_free()
-
-
-func _on_hitbox_area_entered(area):
-	if area.is_in_group("Enemy"):
-		if can_deal_contact_damage:
-			area.die()
-		take_damage(1)
+func _on_health_component_taking_damage():
+	iframe(iframe_dur)
+	anim_player.play("hit")
+	GlobalFunction.camera.shake(0.5,1)
+	GlobalFunction.freeze_frame(0.1, 0.3)

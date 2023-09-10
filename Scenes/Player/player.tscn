@@ -1,10 +1,15 @@
-[gd_scene load_steps=15 format=3 uid="uid://ck2orlq2o5qmb"]
+[gd_scene load_steps=18 format=3 uid="uid://ck2orlq2o5qmb"]
 
 [ext_resource type="Script" path="res://Scripts/Player/player.gd" id="1_yt6el"]
 [ext_resource type="Texture2D" uid="uid://ea7yn7iawkw3" path="res://Assets/Texture/Ship Particle.png" id="2_urmwo"]
 [ext_resource type="Shader" path="res://Shaders/flash.gdshader" id="3_4gis3"]
 [ext_resource type="SpriteFrames" uid="uid://cr7nrws1geubs" path="res://Scripts/player.tres" id="4_o4v42"]
 [ext_resource type="PackedScene" uid="uid://dfse3e86ghjrm" path="res://Scenes/Player/dash_ability.tscn" id="5_gsmg6"]
+[ext_resource type="PackedScene" uid="uid://chia8b5acjtar" path="res://Scenes/health_component.tscn" id="6_vc08u"]
+[ext_resource type="PackedScene" uid="uid://wja8hp8m0buw" path="res://Scenes/hitbox_component.tscn" id="7_xt6g7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xenvm"]
+size = Vector2(12, 14)
 
 [sub_resource type="Curve" id="Curve_bueo5"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -129,13 +134,23 @@ _data = {
 "spawn": SubResource("Animation_nph4m")
 }
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_hxvpv"]
-radius = 4.12311
+[sub_resource type="CircleShape2D" id="CircleShape2D_3df7g"]
+radius = 3.0
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" groups=["Player"]]
 collision_mask = 514
 motion_mode = 1
 script = ExtResource("1_yt6el")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_xenvm")
+
+[node name="FireEffect" type="GPUParticles2D" parent="."]
+position = Vector2(-8, 0)
+amount = 15
+process_material = SubResource("ParticleProcessMaterial_8lr10")
+texture = ExtResource("2_urmwo")
+lifetime = 0.5
 
 [node name="SpawnEffect" type="CPUParticles2D" parent="."]
 emitting = false
@@ -151,13 +166,6 @@ gravity = Vector2(0, 0)
 radial_accel_min = -100.0
 radial_accel_max = -100.0
 
-[node name="FireEffect" type="GPUParticles2D" parent="."]
-position = Vector2(-8, 0)
-amount = 15
-process_material = SubResource("ParticleProcessMaterial_8lr10")
-texture = ExtResource("2_urmwo")
-lifetime = 0.5
-
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_v7clt")
 sprite_frames = ExtResource("4_o4v42")
@@ -169,21 +177,21 @@ libraries = {
 "": SubResource("AnimationLibrary_drjby")
 }
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_hxvpv")
-
-[node name="Hitbox" type="Area2D" parent="."]
-collision_mask = 2
-
-[node name="HitboxShape" type="CollisionShape2D" parent="Hitbox"]
-shape = SubResource("CircleShape2D_hxvpv")
-
 [node name="NormalShootPos" type="Node2D" parent="."]
 
 [node name="ShootSpot" type="Marker2D" parent="NormalShootPos"]
 position = Vector2(6, 0)
 
+[node name="HealthComponent" parent="." instance=ExtResource("6_vc08u")]
+
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("health") instance=ExtResource("7_xt6g7")]
+collision_mask = 10
+health = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+shape = SubResource("CircleShape2D_3df7g")
+
 [node name="DashAbility" parent="." node_paths=PackedStringArray("player") instance=ExtResource("5_gsmg6")]
 player = NodePath("..")
 
-[connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
+[connection signal="taking_damage" from="HealthComponent" to="." method="_on_health_component_taking_damage"]

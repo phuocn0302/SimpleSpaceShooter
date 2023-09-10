@@ -1,10 +1,15 @@
-[gd_scene load_steps=8 format=3 uid="uid://chuti8pmchocr"]
+[gd_scene load_steps=9 format=3 uid="uid://chuti8pmchocr"]
 
 [ext_resource type="Script" path="res://Scripts/world.gd" id="1_wdwe3"]
 [ext_resource type="Shader" path="res://Shaders/change_color.gdshader" id="3_13uas"]
-[ext_resource type="PackedScene" uid="uid://c76qekpnedfev" path="res://Scenes/spinning_enemy.tscn" id="3_kf7j4"]
 [ext_resource type="Script" path="res://Scripts/Camera2D.gd" id="3_t2yux"]
 [ext_resource type="Script" path="res://Scripts/ColorPalette.gd" id="4_hhhkb"]
+[ext_resource type="PackedScene" uid="uid://c76qekpnedfev" path="res://Scenes/spinning_enemy.tscn" id="5_dgalg"]
+
+[sub_resource type="Environment" id="Environment_imqd3"]
+background_mode = 3
+glow_enabled = true
+glow_hdr_threshold = 1.5
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_r1ldr"]
 emission_shape = 3
@@ -24,15 +29,10 @@ shader_parameter/dark_color = Color(0, 0, 0, 1)
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_wdwe3")
+enemy_can_spawn = true
 
-[node name="Background" type="ColorRect" parent="."]
-offset_left = -157.0
-offset_top = -116.0
-offset_right = 203.0
-offset_bottom = 64.0
-scale = Vector2(2, 2)
-color = Color(0, 0, 0, 1)
-metadata/_edit_lock_ = true
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_imqd3")
 
 [node name="CPUParticles2D" type="GPUParticles2D" parent="."]
 position = Vector2(360, 90)
@@ -44,8 +44,8 @@ metadata/_edit_lock_ = true
 collision_layer = 512
 collision_mask = 0
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Bound"]
-polygon = PackedVector2Array(0, 180, -28, 208, -19, -20, 388, -20, 388, 204, -27, 213, 0, 180, 360, 180, 360, 0, 0, 0)
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Bound" groups=["Boundary"]]
+polygon = PackedVector2Array(0, 180, -22, 215, -22, -30, 399, -30, 399, 215, -22, 215, 0, 180, 360, 180, 360, 0, 0, 0)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(180, 90)
@@ -87,5 +87,5 @@ position = Vector2(360, 150)
 
 [node name="EnemyContainer" type="Node2D" parent="."]
 
-[node name="SpinningEnemy" parent="EnemyContainer" instance=ExtResource("3_kf7j4")]
-position = Vector2(283, 101)
+[node name="SpinningEnemy" parent="." instance=ExtResource("5_dgalg")]
+position = Vector2(267, 79)

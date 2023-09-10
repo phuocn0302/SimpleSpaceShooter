@@ -4,10 +4,8 @@ var PlayerPath = preload("res://Scenes/Player/player.tscn")
 var EnemyPath = preload("res://Scenes/enemy.tscn")
 
 @export var enemy_spawn_rate = 1.0 # Per second
-
+@export var enemy_can_spawn = false
 @onready var enemy_container = $EnemyContainer
-
-var enemy_can_spawn = true
 
 
 func _ready():

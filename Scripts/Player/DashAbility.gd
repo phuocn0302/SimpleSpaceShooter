@@ -48,3 +48,6 @@ func spawn_ghost():
 
 func unlock():
 	set_process(true)
+
+func lock():
+	set_process(false)
