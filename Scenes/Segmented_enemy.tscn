@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://myypwwsqy8rj"]
 
 [ext_resource type="Script" path="res://Scripts/Segmented_enemy.gd" id="1_gv44x"]
-[ext_resource type="Texture2D" uid="uid://bdset7qmkserh" path="res://Assets/Texture/Segment_body.png" id="2_8p2uc"]
+[ext_resource type="Texture2D" uid="uid://cpchxjisiveon" path="res://Assets/Texture/Segment_body.png" id="2_8p2uc"]
 [ext_resource type="Texture2D" uid="uid://cyxxu4kmp8mb6" path="res://Assets/Texture/Segment_head.png" id="3_7731g"]
 
 [node name="Segment_enemy" type="Area2D" groups=["Enemy"]]
@@ -15,25 +15,44 @@ script = ExtResource("1_gv44x")
 rotation = 3.14159
 
 [node name="SegmentHead" type="Sprite2D" parent="sprite" groups=["segment"]]
+visible = false
 texture = ExtResource("3_7731g")
-offset = Vector2(13.965, 0)
+offset = Vector2(13.295, 0.62)
 
 [node name="SegmentBody" type="Sprite2D" parent="sprite" groups=["segment"]]
 texture = ExtResource("2_8p2uc")
+offset = Vector2(-0.855, 0.6)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-position = Vector2(0, -0.550003)
+position = Vector2(0, -0.08)
 polygon = PackedVector2Array(-9.33499, -4.24996, -7.25999, -5.595, -6.25999, -6.595, -6.25999, -7.595, -4.25999, -7.595, -4.25999, -8.595, 2.74001, -8.595, 3.74001, -7.595, 5.74001, -7.595, 8.82, -4.26, 8.795, 4.67, 7.864, 5.576, 5.74001, 7.405, 2.74001, 8.405, -3.25999, 8.405, -6.25999, 7.405, -7.25999, 5.405, -9.33501, 4.75004)
 
 [node name="Node2D" type="Node2D" parent="."]
 
+[node name="Gun 2" type="Node2D" parent="Node2D"]
+
+[node name="Shoot pos" type="Marker2D" parent="Node2D/Gun 2"]
+position = Vector2(-0.3, 17)
+rotation = 3.14159
+
 [node name="RayCast2D" type="RayCast2D" parent="Node2D"]
-visible = false
-position = Vector2(-14.855, -0.315)
+position = Vector2(21.31, 0)
+rotation = 3.14159
 target_position = Vector2(-6, 0)
 
 [node name="Marker2D" type="Marker2D" parent="Node2D"]
-position = Vector2(-13.47, -0.315)
+position = Vector2(-6.16, -0.315)
+
+[node name="Gun 1" type="Node2D" parent="Node2D"]
+
+[node name="Shoot pos" type="Marker2D" parent="Node2D/Gun 1"]
+position = Vector2(-0.3, -17)
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(-0.176782, 0.176765)
+scale = Vector2(1.37123, 1.49498)
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="area_exited" from="." to="." method="_on_area_exited"]
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

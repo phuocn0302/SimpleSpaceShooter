@@ -16,7 +16,7 @@ func _ready():
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if enemy_can_spawn:
+	#if enemy_can_spawn:
 		#spawn_enemy_random()
 		#spawn_swarm_random()
 	pass
@@ -68,3 +68,4 @@ func spawn_swarm_random():
 	enemy_can_spawn = false
 	await get_tree().create_timer(enemy_spawn_rate).timeout
 	enemy_can_spawn = true
+

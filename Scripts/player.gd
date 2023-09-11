@@ -65,4 +65,4 @@ func die():
 func _on_hitbox_area_entered(area):
 	if (can_deal_contact_damage) and (area.is_in_group("Enemy")):
 		area.die()
-		take_damage(1)
+		#take_damage(1)
