@@ -8,9 +8,11 @@ var speed = 80.0
 var hp = 10
 var angle = 0
 var front
+var behind
 
 @onready var head = $sprite/SegmentHead
 @onready var body = $sprite/SegmentBody
+@onready var tail = $sprite/SegmentTail
 @onready var sprite = $sprite
 @onready var velocity = Vector2.ZERO
 @onready var marker = $Node2D/Marker2D
@@ -43,15 +45,18 @@ func _process(delta):
 	if (hp <= 0):
 		die()
 func update_segment():
+	head.visible = false
+	body.visible = false
+	tail.visible = false
 	if front == null:
 		head.visible = true
-		body.visible = false
 		can_move = true
-	else:
+	elif front != null && behind != null:
 		body.visible = true
-		head.visible = false
 		can_follow = true
-
+	else :
+		tail.visible = true
+		can_follow = true
 func follow_front(delta):
 	if front != null:
 		var dir =   front.marker.global_position - global_position 

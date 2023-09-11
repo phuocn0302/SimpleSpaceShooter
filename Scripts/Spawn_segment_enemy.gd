@@ -16,10 +16,14 @@ func _process(delta):
 
 func spawn():
 	var prespawnsegment: Segment_enemy = null
+	var postspawnsegment: Segment_enemy = null
 	for i in range(0,length):
 		await get_tree().create_timer(spawn_time).timeout
 		var enemy = EnemyPath.instantiate()
+		if prespawnsegment != null:
+			prespawnsegment.behind = enemy
 		enemy.front = prespawnsegment
+		enemy.behind = postspawnsegment
 		prespawnsegment = enemy
 		add_child(enemy)
 		if(enemy.front == null):

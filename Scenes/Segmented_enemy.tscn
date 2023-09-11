@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://myypwwsqy8rj"]
+[gd_scene load_steps=5 format=3 uid="uid://myypwwsqy8rj"]
 
 [ext_resource type="Script" path="res://Scripts/Segmented_enemy.gd" id="1_gv44x"]
-[ext_resource type="Texture2D" uid="uid://cpchxjisiveon" path="res://Assets/Texture/Segment_body.png" id="2_8p2uc"]
-[ext_resource type="Texture2D" uid="uid://cyxxu4kmp8mb6" path="res://Assets/Texture/Segment_head.png" id="3_7731g"]
+[ext_resource type="Texture2D" uid="uid://cuirqeaidojj6" path="res://Assets/Texture/Head1.png" id="2_vur3w"]
+[ext_resource type="Texture2D" uid="uid://17mx66iy3q24" path="res://Assets/Texture/Body.png" id="3_r262j"]
+[ext_resource type="Texture2D" uid="uid://02vt7t7oxuqk" path="res://Assets/Texture/Tail.png" id="4_0nwbt"]
 
 [node name="Segment_enemy" type="Area2D" groups=["Enemy"]]
 position = Vector2(139, 74)
@@ -16,12 +17,18 @@ rotation = 3.14159
 
 [node name="SegmentHead" type="Sprite2D" parent="sprite" groups=["segment"]]
 visible = false
-texture = ExtResource("3_7731g")
-offset = Vector2(13.295, 0.62)
+texture = ExtResource("2_vur3w")
+offset = Vector2(50.17, 0.62)
 
 [node name="SegmentBody" type="Sprite2D" parent="sprite" groups=["segment"]]
-texture = ExtResource("2_8p2uc")
-offset = Vector2(-0.855, 0.6)
+visible = false
+texture = ExtResource("3_r262j")
+offset = Vector2(50.17, 0.6)
+
+[node name="SegmentTail" type="Sprite2D" parent="sprite" groups=["segment"]]
+visible = false
+texture = ExtResource("4_0nwbt")
+offset = Vector2(50.17, 0.6)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 position = Vector2(0, -0.08)
