@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://b3pbwnmamk2s"]
+
+[ext_resource type="Script" path="res://Scripts/BulletStuff/bullet_spawner.gd" id="1_6ssg1"]
+[ext_resource type="Texture2D" uid="uid://cwhkebasj666p" path="res://Assets/Texture/Enemy.png" id="2_konkj"]
+
+[node name="BulletSpawner" type="Node2D"]
+script = ExtResource("1_6ssg1")
+number_of_bullet = 10
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_konkj")
+
+[node name="SpawnPoint" type="Node2D" parent="."]
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
