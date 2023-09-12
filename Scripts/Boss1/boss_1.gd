@@ -11,6 +11,7 @@ var BulletScene = preload("res://Scenes/enemy_bullet.tscn")
 @onready var wall_detector_down = $WallDetectorDown
 @onready var animation_player = $AnimationPlayer
 @onready var health = $HealthComponent
+@onready var bullet_spawner = $BulletSpawner
 
 
 var ShootTimer: float = 0.5
@@ -36,7 +37,6 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-
 	match current_state:
 		State.PHASE1:
 			move(delta)
@@ -44,8 +44,9 @@ func _process(delta):
 		State.PHASE2:
 			animation_player.play("PHASE2_RESET")
 			follow_player(delta)
-			bullet_speed = 200
+			bullet_speed = 150
 			shoot(ShootTimer/2, INF)
+			bullet_spawner.active = true
 
 
 func move(delta):
@@ -90,12 +91,12 @@ func spawn_bullet(pos):
 func _on_health_component_taking_damage():
 	if health.current_hp <= health.max_hp/2 and animation_player.current_animation != "PHASE2_RESET":
 		animation_player.play("change_gun_pos")
+		set_process(false)
 		await animation_player.animation_finished
+		set_process(true)
 		current_state = State.PHASE2
 
 
 func _on_changer_dir_timeout():
 	var random_dir = [Vector2.UP, Vector2.DOWN].pick_random()
 	dir *= random_dir
-
-

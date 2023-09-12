@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://crkdwbwxbm0fr"]
+[gd_scene load_steps=15 format=3 uid="uid://crkdwbwxbm0fr"]
 
 [ext_resource type="Script" path="res://Scripts/Boss1/boss_1.gd" id="1_1o6uv"]
 [ext_resource type="Texture2D" uid="uid://p2o2ucp0xh25" path="res://Assets/Texture/Boss1/Base.png" id="1_ktwyk"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://ea7yn7iawkw3" path="res://Assets/Texture/Ship Particle.png" id="4_jtete"]
 [ext_resource type="PackedScene" uid="uid://wja8hp8m0buw" path="res://Scenes/hitbox_component.tscn" id="5_t2wp1"]
 [ext_resource type="PackedScene" uid="uid://chia8b5acjtar" path="res://Scenes/health_component.tscn" id="6_wukos"]
+[ext_resource type="PackedScene" uid="uid://b3pbwnmamk2s" path="res://Scenes/BulletStuff/bullet_spawner.tscn" id="7_arb8h"]
 
 [sub_resource type="Curve" id="Curve_33wvm"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -207,6 +208,12 @@ lifetime = 0.5
 texture = ExtResource("1_ktwyk")
 metadata/_edit_lock_ = true
 
+[node name="BulletSpawner" parent="." instance=ExtResource("7_arb8h")]
+fire_rate = 3.0
+bullet_speed = 125.0
+rotate = false
+rotate_deg = 1.0
+
 [node name="TopGun" type="Node2D" parent="."]
 position = Vector2(-2, 0)
 metadata/_edit_group_ = true
@@ -244,7 +251,7 @@ libraries = {
 }
 
 [node name="HealthComponent" parent="." instance=ExtResource("6_wukos")]
-max_hp = 10.0
+max_hp = 150.0
 
 [node name="HitboxComponent" parent="." node_paths=PackedStringArray("health") instance=ExtResource("5_t2wp1")]
 collision_layer = 2

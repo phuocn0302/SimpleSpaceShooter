@@ -1,9 +1,15 @@
 extends Node2D
 
+@export var active: bool = false
 @export var number_of_bullet: int = 4
+
+@export_group("Bullet Stats")
 @export var fire_rate: float = 0.5
-@export var rotatate: bool = true
-@export var rotate_deg: float = 1
+@export var bullet_speed: float = 50
+
+@export_group("Rotation")
+@export var rotate: bool = true
+@export_range(-180, 180) var rotate_deg: float = 0
 
 @onready var spawn_point = $SpawnPoint
 
@@ -13,11 +19,10 @@ var can_shoot: bool = true
 var deg: float = 0
 
 func _process(delta):
-	if rotatate:
-		deg = fmod(deg + rotate_deg, 360)
-	shoot()
-	pass
-
+	if active:
+		if rotate:
+			deg = fmod(deg + rotate_deg, 360)
+		shoot()
 
 func shoot():
 	if can_shoot:
@@ -31,8 +36,5 @@ func spawn_bullet():
 	for i in number_of_bullet:
 		var bullet = GlobalFunction.instantiate_scene(BulletScene, global_position, get_tree().current_scene)
 		bullet.velocity = Vector2.LEFT.rotated(step * i).rotated(deg_to_rad(deg))
-
-func _on_timer_timeout():
-	number_of_bullet += 5
-	rotatate = true 
+		bullet.speed = bullet_speed
 
