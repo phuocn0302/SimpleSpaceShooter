@@ -25,6 +25,7 @@ var can_flash = true
 
 
 func _ready():
+	Global.player = self
 	anim_player.play("spawn")
 	iframe(iframe_dur)
 
@@ -74,5 +75,5 @@ func flashing(interval):
 func _on_health_component_taking_damage():
 	iframe(iframe_dur)
 	anim_player.play("hit")
-	GlobalFunction.camera.shake(0.5,1)
+	Global.camera.shake(0.5,1)
 	GlobalFunction.freeze_frame(0.1, 0.3)

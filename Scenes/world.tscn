@@ -1,10 +1,10 @@
 [gd_scene load_steps=9 format=3 uid="uid://chuti8pmchocr"]
 
 [ext_resource type="Script" path="res://Scripts/world.gd" id="1_wdwe3"]
+[ext_resource type="Script" path="res://Scripts/camera.gd" id="2_ilw1g"]
 [ext_resource type="Shader" path="res://Shaders/change_color.gdshader" id="3_13uas"]
-[ext_resource type="Script" path="res://Scripts/Camera2D.gd" id="3_t2yux"]
-[ext_resource type="Script" path="res://Scripts/ColorPalette.gd" id="4_hhhkb"]
-[ext_resource type="PackedScene" uid="uid://c76qekpnedfev" path="res://Scenes/spinning_enemy.tscn" id="5_dgalg"]
+[ext_resource type="Script" path="res://Scripts/color_palette.gd" id="4_f001o"]
+[ext_resource type="PackedScene" uid="uid://b3pbwnmamk2s" path="res://Scenes/BulletStuff/bullet_spawner.tscn" id="5_yhd13"]
 
 [sub_resource type="Environment" id="Environment_imqd3"]
 background_mode = 3
@@ -29,7 +29,6 @@ shader_parameter/dark_color = Color(0, 0, 0, 1)
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_wdwe3")
-enemy_can_spawn = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_imqd3")
@@ -49,7 +48,7 @@ polygon = PackedVector2Array(0, 180, -22, 215, -22, -30, 399, -30, 399, 215, -22
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(180, 90)
-script = ExtResource("3_t2yux")
+script = ExtResource("2_ilw1g")
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
@@ -63,7 +62,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("4_hhhkb")
+script = ExtResource("4_f001o")
 
 [node name="PlayerSpawn" type="Marker2D" parent="."]
 position = Vector2(50, 90)
@@ -87,5 +86,7 @@ position = Vector2(360, 150)
 
 [node name="EnemyContainer" type="Node2D" parent="."]
 
-[node name="SpinningEnemy" parent="." instance=ExtResource("5_dgalg")]
-position = Vector2(267, 79)
+[node name="BulletSpawner" parent="." instance=ExtResource("5_yhd13")]
+position = Vector2(226, 91)
+rotatate = false
+rotate_deg = 10.0

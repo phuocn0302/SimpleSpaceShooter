@@ -18,6 +18,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 GlobalFunction="*res://Scripts/global_function.gd"
+Global="*res://Scripts/global.gd"
 
 [display]
 

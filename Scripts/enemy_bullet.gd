@@ -10,6 +10,8 @@ extends Area2D
 var can_chase: bool = false
 var velocity = Vector2.LEFT
 
+func _ready():
+	vel_mode()
 
 func _process(delta):
 	if use_transform:

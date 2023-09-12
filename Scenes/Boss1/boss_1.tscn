@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://crkdwbwxbm0fr"]
+[gd_scene load_steps=14 format=3 uid="uid://crkdwbwxbm0fr"]
 
 [ext_resource type="Script" path="res://Scripts/Boss1/boss_1.gd" id="1_1o6uv"]
 [ext_resource type="Texture2D" uid="uid://p2o2ucp0xh25" path="res://Assets/Texture/Boss1/Base.png" id="1_ktwyk"]
@@ -31,6 +31,58 @@ scale_curve = SubResource("CurveTexture_4ef48")
 turbulence_noise_scale = 1.0
 turbulence_noise_speed = Vector3(0.5, 0.5, 0.5)
 
+[sub_resource type="Animation" id="Animation_02jui"]
+resource_name = "PHASE2_RESET"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TopGun:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(17, -8)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BotGun:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(17, 8)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("HitboxComponent/TopGun2:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(19, -8)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("HitboxComponent/BotGun2:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(19, 8)]
+}
+
 [sub_resource type="Animation" id="Animation_51xjk"]
 length = 0.001
 tracks/0/type = "value"
@@ -60,46 +112,22 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("HitboxComponent/TopGun:position")
+tracks/2/path = NodePath("HitboxComponent/TopGun2:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0, 0)]
+"values": [Vector2(1, -1)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("HitboxComponent/BotGun:position")
+tracks/3/path = NodePath("HitboxComponent/BotGun2:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("HitboxComponent/TopGun2:position")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, -1)]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("HitboxComponent/BotGun2:position")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
@@ -136,46 +164,22 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("HitboxComponent/TopGun:position")
+tracks/2/path = NodePath("HitboxComponent/BotGun2:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0, 0.5, 0.6, 1.5),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(0, 0), Vector2(10, -8), Vector2(10, -8), Vector2(19, -8)]
+"values": [Vector2(0, 0), Vector2(10, 8), Vector2(10, 8), Vector2(19, 8)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("HitboxComponent/BotGun:position")
+tracks/3/path = NodePath("HitboxComponent/TopGun2:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.5, 0.6, 1.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(10, 8), Vector2(10, 8), Vector2(19, 8)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("HitboxComponent/BotGun2:position")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0, 0.5, 0.6, 1.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(10, 8), Vector2(10, 8), Vector2(19, 8)]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("HitboxComponent/TopGun2:position")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
 "times": PackedFloat32Array(0, 0.5, 0.6, 1.5),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
@@ -184,6 +188,7 @@ tracks/5/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_3uumw"]
 _data = {
+"PHASE2_RESET": SubResource("Animation_02jui"),
 "RESET": SubResource("Animation_51xjk"),
 "change_gun_pos": SubResource("Animation_anlh7")
 }
@@ -238,6 +243,9 @@ libraries = {
 "": SubResource("AnimationLibrary_3uumw")
 }
 
+[node name="HealthComponent" parent="." instance=ExtResource("6_wukos")]
+max_hp = 10.0
+
 [node name="HitboxComponent" parent="." node_paths=PackedStringArray("health") instance=ExtResource("5_t2wp1")]
 collision_layer = 2
 collision_mask = 5
@@ -254,4 +262,8 @@ polygon = PackedVector2Array(-53, -12, -32, -12, -26, -18, -18, -18, -11, -25, -
 scale = Vector2(1, -1)
 polygon = PackedVector2Array(-53, -12, -32, -12, -26, -18, -18, -18, -11, -25, -4, -25, -1, -22, -1, -14, -8, -6, -53, -6)
 
-[node name="HealthComponent" parent="." instance=ExtResource("6_wukos")]
+[node name="ChangerDir" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="taking_damage" from="HealthComponent" to="." method="_on_health_component_taking_damage"]
+[connection signal="timeout" from="ChangerDir" to="." method="_on_changer_dir_timeout"]
