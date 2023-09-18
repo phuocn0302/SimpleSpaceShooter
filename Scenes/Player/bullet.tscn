@@ -5,9 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://wja8hp8m0buw" path="res://Scenes/hitbox_component.tscn" id="3_ax44j"]
 [ext_resource type="PackedScene" uid="uid://cimbtvvykav1b" path="res://Scenes/Particles/hitparticle.tscn" id="4_08k4e"]
 
-[node name="Bullet" type="Area2D"]
-collision_layer = 4
-collision_mask = 2
+[node name="Bullet" type="Node2D"]
 script = ExtResource("1_c40fv")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -18,8 +16,9 @@ position = Vector2(-9, 0)
 scale = Vector2(0.1, 0.3)
 
 [node name="HitboxComponent" parent="." instance=ExtResource("3_ax44j")]
-collision_layer = 4
+collision_layer = 0
 collision_mask = 2
+monitorable = false
 destroy_effect = ExtResource("4_08k4e")
 destroy_on_impact = true
 
@@ -27,5 +26,4 @@ destroy_on_impact = true
 rotation = 1.5708
 polygon = PackedVector2Array(-2.00001, -1.99999, -1.00001, -3, 0.999989, -3, 1.99999, -2.00001, 2.00001, 2.99999, -1.99999, 3.00001)
 
-[connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

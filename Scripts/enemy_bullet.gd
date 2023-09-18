@@ -1,32 +1,32 @@
-extends Area2D
+extends Node2D
+class_name Enemy_Bullet
 
 @export var speed: float = 50
-@export var damage: int = 1
-@export var use_transform: bool = false
-@export var use_vel: bool = false
+@export var velocity = Vector2.LEFT
 
-@onready var player = get_tree().current_scene.get_node("Player") if get_tree().current_scene.has_node("Player") else null
-
-var can_chase: bool = false
-var velocity = Vector2.LEFT
+@export_group("Accel")
+@export var use_accel: bool = false
+@export var final_speed: float = 150
+@export var init_speed: float = 0
+@export var speed_change: float = 10
+var accel_speed: float
 
 func _ready():
-	vel_mode()
+	accel_speed = init_speed
 
 func _process(delta):
-	if use_transform:
-		global_position += -transform.y * speed * delta
-	if use_vel:
-		global_position += velocity * speed * delta
+	if use_accel:
+		move_with_accel(delta)
+	else:
+		move(delta)
+
+func move(delta):
+	global_position += velocity.normalized() * speed * delta
+
+func move_with_accel(delta):
+	accel_speed = move_toward(accel_speed, final_speed, speed_change * delta * 60)
+	global_position += velocity.normalized() * accel_speed * delta
 
 func _on_visible_on_screen_notifier_2d_screen_exited():
 	queue_free()
 
-func vel_mode():
-	use_vel = true
-
-func transform_mode():
-	use_transform = true
-
-func chase():
-	can_chase = true

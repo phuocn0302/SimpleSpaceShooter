@@ -1,70 +1,79 @@
 extends Node2D
 
 var BulletScene = preload("res://Scenes/enemy_bullet.tscn")
+var BulletSharpScene = preload("res://Scenes/BulletStuff/enemy_bullet_sharp.tscn")
 
+@export var init_state: State = State.PHASE1
 @export var speed: float = 60
-@export var bullet_speed: float = 100
 
 @onready var top_gun = $TopGun/Muzzle
 @onready var bot_gun = $BotGun/Muzzle
-@onready var wall_detector_up = $WallDetectorUp
-@onready var wall_detector_down = $WallDetectorDown
 @onready var animation_player = $AnimationPlayer
 @onready var health = $HealthComponent
 @onready var bullet_spawner = $BulletSpawner
+@onready var hitbox_component = $HitboxComponent as HitboxComponent
 
-
-var ShootTimer: float = 0.5
-var can_shoot: bool = true
 var dir = Vector2.UP
-var shoot_thres = 10
-var shoot_counter = 0
-var time = 0
-var player 
+
+var bullet_speed: float = 100
+var shoot_timer: float = 1.5
+var shoot_thres: int = 10
+var shoot_counter: int = 0
+var spread_deg: float = 10
+
+var time: float = 0
+var can_shoot: bool = true
+var random_bullet_spread: bool = false
+var shoot_at_player: bool = false
+
+var function = GlobalFunction as Global_Function
+var player
+
+var drone1_died: bool = false
+var drone2_died: bool = false
 
 var current_state
+
 enum State {
 	PHASE1,
 	PHASE2
 }
 
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	randomize()
-	current_state = State.PHASE1
+	current_state = init_state
 	global_position = Vector2(270, 90)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+
 func _process(delta):
+
+	player = Global.player
 	match current_state:
 		State.PHASE1:
-			move(delta)
-			shoot(ShootTimer, shoot_thres)
+			check_drone()
+			hitbox_component.deactive(true)
+			shoot(shoot_timer, shoot_thres)
+			shoot_at_player = true
 		State.PHASE2:
 			animation_player.play("PHASE2_RESET")
+			hitbox_component.active()
 			follow_player(delta)
-			bullet_speed = 150
-			shoot(ShootTimer/2, INF)
+			shoot_at_player = false
+			bullet_speed = 200
+			shoot(0.3, INF)
 			bullet_spawner.active = true
 
-
-func move(delta):
-	global_position += dir * speed * delta 
-	if wall_detector_up.is_colliding():
-		$ChangerDir.start()
-		dir = Vector2.DOWN
-	if wall_detector_down.is_colliding():
-		$ChangerDir.start()
-		dir = Vector2.UP
+func check_drone():
+	if drone1_died and drone2_died:
+		await animation_player.animation_finished
+		change_phase()
 
 func follow_player(delta):
-	time += 0.05
-	time = 0 if time > 2 * PI else time
+	time = wrapf(time + 0.05, 0, 2 * PI)
 	global_position.x += cos(time)
 	global_position.y += cos(2 * time) * 1.3
 	
-	player = Global.player
 	if player != null:
 		global_position.y = lerp(global_position.y, player.global_position.y, delta)
 
@@ -75,28 +84,65 @@ func shoot(shoot_interval, threshold):
 	elif can_shoot:
 		shoot_counter +=1
 		
-		spawn_bullet(top_gun.global_position)
-		spawn_bullet(bot_gun.global_position)
+		spawn_bullet(top_gun.global_position, BulletSharpScene)
+		spawn_bullet(bot_gun.global_position, BulletSharpScene)
 		
 		can_shoot = false
 		await get_tree().create_timer(shoot_interval).timeout
 		can_shoot = true
 
-func spawn_bullet(pos):
-	var bullet = GlobalFunction.instantiate_scene(BulletScene, pos, get_tree().current_scene)
-	bullet.vel_mode()
-	bullet.speed = bullet_speed
+func spawn_bullet(pos, type):
 	
+	var bullet = (function.instantiate_scene(type, pos, get_tree().current_scene)
+	as Enemy_Bullet)
+	
+	bullet.speed = bullet_speed
+	if random_bullet_spread:
+		bullet.velocity = Vector2.LEFT.rotated(deg_to_rad(randf_range(-spread_deg, spread_deg)))
+	if shoot_at_player:
+		bullet.velocity = get_vector_player(pos)
+	bullet.global_rotation = bullet.velocity.angle()
+
+func get_vector_player(pos):
+	if player != null:
+		return (player.global_position - pos).normalized()
+	else:
+		return Vector2.LEFT
+
+func change_phase():
+	animation_player.play("change_gun_pos")
+	
+	var length = animation_player.current_animation_length
+	function.screen_shake(length, 1)
+	function.freeze_frame(0.7, length - 0.1)
+	
+	set_process(false)
+	await animation_player.animation_finished
+	set_process(true)
+	
+	current_state = State.PHASE2
+	random_bullet_spread = false
 
 func _on_health_component_taking_damage():
-	if health.current_hp <= health.max_hp/2 and animation_player.current_animation != "PHASE2_RESET":
-		animation_player.play("change_gun_pos")
-		set_process(false)
-		await animation_player.animation_finished
-		set_process(true)
-		current_state = State.PHASE2
-
+	function.flash(self)
+	function.flash($Drone)
+	function.flash($Drone2)
 
 func _on_changer_dir_timeout():
 	var random_dir = [Vector2.UP, Vector2.DOWN].pick_random()
 	dir *= random_dir
+
+func _die():
+	function.explode_effect(global_position)
+	function.freeze_frame(0.5, 1)
+	queue_free()
+
+func _on_drone_drone_die():
+	animation_player.play("drone1_died")
+	drone1_died = true
+
+func _on_drone_2_drone_die():
+	animation_player.play("drone2_died")
+	drone2_died = true
+
+

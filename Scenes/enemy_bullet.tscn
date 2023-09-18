@@ -6,12 +6,12 @@
 [ext_resource type="PackedScene" uid="uid://cimbtvvykav1b" path="res://Scenes/Particles/hitparticle.tscn" id="4_t048h"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7u81f"]
-radius = 2.0
+radius = 3.0
 
-[node name="EnemyBullet" type="Area2D"]
-scale = Vector2(1.5, 1.5)
-collision_layer = 8
+[node name="EnemyBullet" type="Node2D"]
 script = ExtResource("1_q5v8l")
+final_speed = 50.0
+init_speed = 200.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_swbci")
@@ -20,7 +20,8 @@ texture = ExtResource("1_swbci")
 scale = Vector2(0.1, 0.1)
 
 [node name="HitboxComponent" parent="." instance=ExtResource("3_pr5si")]
-collision_layer = 8
+collision_layer = 0
+monitorable = false
 destroy_effect = ExtResource("4_t048h")
 destroy_on_impact = true
 

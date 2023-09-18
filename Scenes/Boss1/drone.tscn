@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://tc8lno8rk5tw"]
+
+[ext_resource type="Script" path="res://Scripts/Boss1/drone.gd" id="1_j3anc"]
+[ext_resource type="Texture2D" uid="uid://cpm58uq7nybmj" path="res://Assets/Texture/Boss1/DroneGun.png" id="2_s0xo8"]
+[ext_resource type="PackedScene" uid="uid://chia8b5acjtar" path="res://Scenes/health_component.tscn" id="3_pu7n1"]
+[ext_resource type="PackedScene" uid="uid://wja8hp8m0buw" path="res://Scenes/hitbox_component.tscn" id="4_l5jtj"]
+
+[node name="Drone" type="Node2D"]
+position = Vector2(-11, -27)
+script = ExtResource("1_j3anc")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+use_parent_material = true
+position = Vector2(0, -4)
+texture = ExtResource("2_s0xo8")
+
+[node name="Muzzle" type="Marker2D" parent="."]
+position = Vector2(-30, -3)
+
+[node name="HealthComponent" parent="." instance=ExtResource("3_pu7n1")]
+max_hp = 15.0
+
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("health") instance=ExtResource("4_l5jtj")]
+collision_layer = 2
+health = NodePath("../HealthComponent")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HitboxComponent"]
+position = Vector2(0, -5)
+polygon = PackedVector2Array(-26, 0, -13, 0, -4, -6, 28, -6, 9, 15, 0, 15, -5, 6, -26, 6)
+
+[connection signal="taking_damage" from="HealthComponent" to="." method="_on_health_component_taking_damage"]
+[connection signal="zero_hp" from="HealthComponent" to="." method="_on_health_component_zero_hp"]

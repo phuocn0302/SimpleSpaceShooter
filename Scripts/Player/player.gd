@@ -12,7 +12,7 @@ var FlashShader = preload("res://Shaders/flash.gdshader")
 @onready var anim_player = $AnimationPlayer
 @onready var anim_sprite = $AnimatedSprite2D
 @onready var normal_shoot_pos = $NormalShootPos/ShootSpot
-@onready var hitbox_component = $HitboxComponent
+@onready var hitbox_component = $HitboxComponent as HitboxComponent
 
 var iframe_dur: float = 0.6
 var player_dir: Vector2 = Vector2.ZERO
@@ -23,6 +23,7 @@ var can_move = true
 var can_shoot = true
 var can_flash = true
 
+var function = GlobalFunction as Global_Function
 
 func _ready():
 	Global.player = self
@@ -32,6 +33,7 @@ func _ready():
 func _process(_delta):
 	anim_sprite.play("default")
 	$DashAbility.unlock()
+
 
 func _physics_process(delta):
 	get_input(delta)
@@ -47,33 +49,28 @@ func get_input(delta):
 
 func shoot():
 	if can_shoot:
-		GlobalFunction.instantiate_scene(BulletPath,normal_shoot_pos.global_position, get_parent())
+		function.instantiate_scene(BulletPath,normal_shoot_pos.global_position, get_parent())
 		can_shoot = false
 		await get_tree().create_timer(fire_rate).timeout
 		can_shoot = true
 
 func iframe(duration):
-	hitbox_component.get_node("CollisionShape2D").set_deferred("disabled",true)
+	hitbox_component.deactive()
 	await get_tree().create_timer(duration).timeout
-	hitbox_component.get_node("CollisionShape2D").set_deferred("disabled",false)
+	hitbox_component.active()
+	function.flash(self)
 	anim_player.play("RESET")
 
-func flash(flash_dur: float, flash_interval: float):
-	can_flash = true
-	flashing(flash_interval)
-	await get_tree().create_timer(flash_dur).timeout
-	can_flash = false
-
-func flashing(interval):
-	if can_flash:
-		anim_sprite.material.set_shader_parameter("active", true)
-		await get_tree().create_timer(interval).timeout
-		anim_sprite.material.set_shader_parameter("active", false)
-		await get_tree().create_timer(interval).timeout
-		flashing(interval)
 
 func _on_health_component_taking_damage():
+	function.flash(self)
 	iframe(iframe_dur)
 	anim_player.play("hit")
-	Global.camera.shake(0.5,1)
-	GlobalFunction.freeze_frame(0.1, 0.3)
+	function.screen_shake(0.5,1)
+	function.freeze_frame(0.3, 0.3)
+
+
+func _die():
+	Global.player = null
+	function.explode_effect(global_position)
+	queue_free()

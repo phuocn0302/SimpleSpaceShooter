@@ -13,8 +13,8 @@ func _ready():
 func _process(_delta):
 	offset = Vector2(randi_range(-1,1) * shake_amount, randi_range(-1,1) * shake_amount)
 
-func shake(shake_time, amount):
-	shake_amount = amount
+func shake(shake_time, intensity):
+	shake_amount = intensity
 	set_process(true)
 	await get_tree().create_timer(shake_time).timeout
 	offset = default_offset

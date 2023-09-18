@@ -191,3 +191,4 @@ polygon = PackedVector2Array(-7, -14, -7, -10, -10, -9, -13, -9, -14, -8, -14, -
 position = Vector2(-16, 0)
 
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="zero_hp" from="HealthComponent" to="." method="_die"]

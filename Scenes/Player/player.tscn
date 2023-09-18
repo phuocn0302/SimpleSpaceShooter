@@ -1,8 +1,7 @@
-[gd_scene load_steps=18 format=3 uid="uid://ck2orlq2o5qmb"]
+[gd_scene load_steps=16 format=3 uid="uid://ck2orlq2o5qmb"]
 
 [ext_resource type="Script" path="res://Scripts/Player/player.gd" id="1_yt6el"]
 [ext_resource type="Texture2D" uid="uid://ea7yn7iawkw3" path="res://Assets/Texture/Ship Particle.png" id="2_urmwo"]
-[ext_resource type="Shader" path="res://Shaders/flash.gdshader" id="3_4gis3"]
 [ext_resource type="SpriteFrames" uid="uid://cr7nrws1geubs" path="res://Scripts/player.tres" id="4_o4v42"]
 [ext_resource type="PackedScene" uid="uid://dfse3e86ghjrm" path="res://Scenes/Player/dash_ability.tscn" id="5_gsmg6"]
 [ext_resource type="PackedScene" uid="uid://chia8b5acjtar" path="res://Scenes/health_component.tscn" id="6_vc08u"]
@@ -34,10 +33,6 @@ scale_curve = SubResource("CurveTexture_2gm8y")
 turbulence_enabled = true
 turbulence_noise_scale = 1.0
 turbulence_noise_speed = Vector3(0.5, 0.5, 0.5)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_v7clt"]
-shader = ExtResource("3_4gis3")
-shader_parameter/active = false
 
 [sub_resource type="Animation" id="Animation_3tb6o"]
 length = 0.001
@@ -167,7 +162,7 @@ radial_accel_min = -100.0
 radial_accel_max = -100.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-material = SubResource("ShaderMaterial_v7clt")
+use_parent_material = true
 sprite_frames = ExtResource("4_o4v42")
 frame_progress = 0.418001
 
@@ -183,6 +178,7 @@ libraries = {
 position = Vector2(6, 0)
 
 [node name="HealthComponent" parent="." instance=ExtResource("6_vc08u")]
+max_hp = inf
 
 [node name="HitboxComponent" parent="." node_paths=PackedStringArray("health") instance=ExtResource("7_xt6g7")]
 collision_mask = 10
@@ -195,3 +191,4 @@ shape = SubResource("CircleShape2D_3df7g")
 player = NodePath("..")
 
 [connection signal="taking_damage" from="HealthComponent" to="." method="_on_health_component_taking_damage"]
+[connection signal="zero_hp" from="HealthComponent" to="." method="_die"]
