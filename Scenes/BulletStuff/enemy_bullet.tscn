@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://bknimms34evip"]
+
+[ext_resource type="Script" path="res://Scripts/BulletStuff/enemy_bullet.gd" id="1_js5fa"]
+[ext_resource type="Texture2D" uid="uid://dpdr8qkw28igk" path="res://Assets/Texture/EnemyBullet.png" id="2_2cxhw"]
+[ext_resource type="PackedScene" uid="uid://wja8hp8m0buw" path="res://Scenes/Component/hitbox_component.tscn" id="3_i5oyl"]
+[ext_resource type="PackedScene" uid="uid://cimbtvvykav1b" path="res://Scenes/Particles/hitparticle.tscn" id="4_7bkm1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qd3s7"]
+size = Vector2(4, 4)
+
+[node name="EnemyBullet" type="Node2D"]
+script = ExtResource("1_js5fa")
+final_speed = 50.0
+init_speed = 200.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_2cxhw")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+scale = Vector2(0.1, 0.1)
+
+[node name="HitboxComponent" parent="." instance=ExtResource("3_i5oyl")]
+collision_layer = 0
+monitorable = false
+destroy_effect = ExtResource("4_7bkm1")
+destroy_on_impact = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+shape = SubResource("RectangleShape2D_qd3s7")
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

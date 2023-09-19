@@ -15,6 +15,7 @@ func _ready():
 	accel_speed = init_speed
 
 func _process(delta):
+	global_rotation = velocity.angle()
 	if use_accel:
 		move_with_accel(delta)
 	else:

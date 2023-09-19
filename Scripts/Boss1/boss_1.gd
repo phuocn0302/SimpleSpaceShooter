@@ -1,6 +1,6 @@
 extends Node2D
 
-var BulletScene = preload("res://Scenes/enemy_bullet.tscn")
+var BulletScene = preload("res://Scenes/BulletStuff/enemy_bullet.tscn")
 var BulletSharpScene = preload("res://Scenes/BulletStuff/enemy_bullet_sharp.tscn")
 
 @export var init_state: State = State.PHASE1
@@ -13,7 +13,7 @@ var BulletSharpScene = preload("res://Scenes/BulletStuff/enemy_bullet_sharp.tscn
 @onready var bullet_spawner = $BulletSpawner
 @onready var hitbox_component = $HitboxComponent as HitboxComponent
 
-var dir = Vector2.UP
+var dir: Vector2 = Vector2.UP
 
 var bullet_speed: float = 100
 var shoot_timer: float = 1.5
@@ -101,7 +101,7 @@ func spawn_bullet(pos, type):
 		bullet.velocity = Vector2.LEFT.rotated(deg_to_rad(randf_range(-spread_deg, spread_deg)))
 	if shoot_at_player:
 		bullet.velocity = get_vector_player(pos)
-	bullet.global_rotation = bullet.velocity.angle()
+
 
 func get_vector_player(pos):
 	if player != null:

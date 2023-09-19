@@ -4,9 +4,9 @@
 [ext_resource type="Texture2D" uid="uid://p2o2ucp0xh25" path="res://Assets/Texture/Boss1/Base.png" id="1_ktwyk"]
 [ext_resource type="Texture2D" uid="uid://cqvy2h86fhdny" path="res://Assets/Texture/Boss1/Gun.png" id="2_1e2w1"]
 [ext_resource type="Texture2D" uid="uid://ea7yn7iawkw3" path="res://Assets/Texture/Ship Particle.png" id="4_jtete"]
-[ext_resource type="PackedScene" uid="uid://wja8hp8m0buw" path="res://Scenes/hitbox_component.tscn" id="5_t2wp1"]
+[ext_resource type="PackedScene" uid="uid://wja8hp8m0buw" path="res://Scenes/Component/hitbox_component.tscn" id="5_t2wp1"]
 [ext_resource type="PackedScene" uid="uid://tc8lno8rk5tw" path="res://Scenes/Boss1/drone.tscn" id="6_nebwk"]
-[ext_resource type="PackedScene" uid="uid://chia8b5acjtar" path="res://Scenes/health_component.tscn" id="6_wukos"]
+[ext_resource type="PackedScene" uid="uid://chia8b5acjtar" path="res://Scenes/Component/health_component.tscn" id="6_wukos"]
 [ext_resource type="PackedScene" uid="uid://b3pbwnmamk2s" path="res://Scenes/BulletStuff/bullet_spawner.tscn" id="7_arb8h"]
 
 [sub_resource type="Curve" id="Curve_33wvm"]
@@ -334,8 +334,6 @@ polygon = PackedVector2Array(-53, -12, -32, -12, -26, -18, -18, -18, -11, -25, -
 [node name="ChangerDir" type="Timer" parent="."]
 one_shot = true
 
-[connection signal="drone_die" from="Drone" to="." method="_on_drone_drone_die"]
-[connection signal="drone_die" from="Drone2" to="." method="_on_drone_2_drone_die"]
 [connection signal="taking_damage" from="HealthComponent" to="." method="_on_health_component_taking_damage"]
 [connection signal="zero_hp" from="HealthComponent" to="." method="_die"]
 [connection signal="timeout" from="ChangerDir" to="." method="_on_changer_dir_timeout"]

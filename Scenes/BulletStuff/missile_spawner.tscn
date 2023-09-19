@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://1mkaqh22mptf"]
+
+[ext_resource type="Script" path="res://Scripts/BulletStuff/missile_spawner.gd" id="1_fdf1k"]
+
+[node name="MissileSpawner" type="Node2D"]
+script = ExtResource("1_fdf1k")

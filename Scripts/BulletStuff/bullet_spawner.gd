@@ -25,7 +25,7 @@ extends Node2D
 
 @onready var spawn_point = $SpawnPoint
 
-var BulletScene = preload("res://Scenes/enemy_bullet.tscn")
+var BulletScene = preload("res://Scenes/BulletStuff/enemy_bullet.tscn")
 
 var can_shoot: bool = true
 var deg: float = 0
