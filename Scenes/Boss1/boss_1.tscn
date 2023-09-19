@@ -334,6 +334,8 @@ polygon = PackedVector2Array(-53, -12, -32, -12, -26, -18, -18, -18, -11, -25, -
 [node name="ChangerDir" type="Timer" parent="."]
 one_shot = true
 
+[connection signal="drone_die" from="Drone" to="." method="_on_drone_drone_die"]
+[connection signal="drone_die" from="Drone2" to="." method="_on_drone_2_drone_die"]
 [connection signal="taking_damage" from="HealthComponent" to="." method="_on_health_component_taking_damage"]
 [connection signal="zero_hp" from="HealthComponent" to="." method="_die"]
 [connection signal="timeout" from="ChangerDir" to="." method="_on_changer_dir_timeout"]

@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://Scripts/camera.gd" id="2_ilw1g"]
 [ext_resource type="Shader" path="res://Shaders/change_color.gdshader" id="3_13uas"]
 [ext_resource type="Script" path="res://Scripts/color_palette.gd" id="4_f001o"]
-[ext_resource type="PackedScene" uid="uid://1mkaqh22mptf" path="res://Scenes/BulletStuff/missile_spawner.tscn" id="5_n6ltq"]
+[ext_resource type="PackedScene" uid="uid://crkdwbwxbm0fr" path="res://Scenes/Boss1/boss_1.tscn" id="5_t808r"]
 
 [sub_resource type="Environment" id="Environment_imqd3"]
 background_mode = 3
@@ -89,5 +89,5 @@ position = Vector2(360, 150)
 
 [node name="EnemyContainer" type="Node2D" parent="."]
 
-[node name="MissileSpawner" parent="." instance=ExtResource("5_n6ltq")]
-position = Vector2(263, 90)
+[node name="Boss1" parent="." instance=ExtResource("5_t808r")]
+position = Vector2(196, 132)

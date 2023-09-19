@@ -1,6 +1,6 @@
 extends Node2D
 
-var Bullet = preload("res://Scenes/enemy_bullet.tscn")
+var Bullet = preload("res://Scenes/BulletStuff/enemy_bullet.tscn")
 
 @export var shoot_timer: float = 0.6
 @export var bullet_speed: float = 150
