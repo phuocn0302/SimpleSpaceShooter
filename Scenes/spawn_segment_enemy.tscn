@@ -3,4 +3,6 @@
 [ext_resource type="Script" path="res://Scripts/Spawn_segment_enemy.gd" id="1_iiwqh"]
 
 [node name="Spawn_segment_enemy" type="Node2D"]
+position = Vector2(1, 0)
 script = ExtResource("1_iiwqh")
+length = 10

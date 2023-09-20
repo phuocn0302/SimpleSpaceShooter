@@ -39,8 +39,8 @@ target_position = Vector2(-6, 0)
 position = Vector2(-20, 0)
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
-position = Vector2(35, 0.916688)
-scale = Vector2(2.06555, 2.67456)
+position = Vector2(7.62939e-06, -7.62939e-06)
+scale = Vector2(2.06555, 1.78189)
 
 [node name="Head_hitbox" type="CollisionPolygon2D" parent="."]
 visible = false

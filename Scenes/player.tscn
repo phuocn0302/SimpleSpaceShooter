@@ -280,4 +280,7 @@ libraries = {
 [node name="ShootSpot" type="Marker2D" parent="NormalShootPos"]
 position = Vector2(20, 0)
 
+[node name="Camera2D" type="Camera2D" parent="."]
+enabled = false
+
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]

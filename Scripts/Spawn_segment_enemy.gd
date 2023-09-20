@@ -1,7 +1,7 @@
 extends Node2D
 
 var curpos = self.position
-var length = 15              
+@export var length = 15              
 var spawn_time = 0.1
 var EnemyPath = preload("res://Scenes/Segmented_enemy.tscn")
 
@@ -30,4 +30,6 @@ func spawn():
 			var angle = randf_range(-PI,PI)
 			enemy.sprite.rotate(angle)
 			enemy.get_node("Node2D").rotate(angle)
-			enemy.get_node("CollisionPolygon2D").rotate(angle)
+			enemy.head_hitbox.rotate(angle)
+			enemy.tail_hitbox.rotate(angle)
+			enemy.body_hitbox.rotate(angle)
