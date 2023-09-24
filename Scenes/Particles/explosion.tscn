@@ -1,13 +1,13 @@
 [gd_scene load_steps=6 format=3 uid="uid://ng2tggihhdpm"]
 
 [ext_resource type="Script" path="res://Scripts/explosion.gd" id="1_xuueb"]
-[ext_resource type="Texture2D" uid="uid://ea7yn7iawkw3" path="res://Assets/Texture/Ship Particle.png" id="2_eoqrg"]
+[ext_resource type="Texture2D" uid="uid://ea7yn7iawkw3" path="res://Assets/Texture/Particles/Ship Particle.png" id="2_eoqrg"]
 
 [sub_resource type="Curve" id="Curve_n28du"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 2
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.302178, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
 
-[sub_resource type="CurveTexture" id="CurveTexture_mxjau"]
+[sub_resource type="CurveTexture" id="CurveTexture_imj1i"]
 curve = SubResource("Curve_n28du")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_wvtrg"]
@@ -19,8 +19,10 @@ initial_velocity_min = 100.0
 initial_velocity_max = 200.0
 orbit_velocity_min = 0.0
 orbit_velocity_max = 0.0
+damping_min = 100.0
+damping_max = 100.0
 scale_max = 2.0
-scale_curve = SubResource("CurveTexture_mxjau")
+scale_curve = SubResource("CurveTexture_imj1i")
 
 [node name="explosion" type="Node2D"]
 script = ExtResource("1_xuueb")
@@ -29,9 +31,11 @@ script = ExtResource("1_xuueb")
 amount = 50
 process_material = SubResource("ParticleProcessMaterial_wvtrg")
 texture = ExtResource("2_eoqrg")
+lifetime = 0.7
 explosiveness = 1.0
 
 [node name="Timer" type="Timer" parent="."]
+wait_time = 0.7
 one_shot = true
 autostart = true
 

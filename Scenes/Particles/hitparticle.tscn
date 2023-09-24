@@ -18,7 +18,7 @@ scale_max = 2.0
 script = ExtResource("1_wjbfi")
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
-amount = 6
+amount = 10
 process_material = SubResource("ParticleProcessMaterial_r34cp")
 lifetime = 0.25
 explosiveness = 1.0

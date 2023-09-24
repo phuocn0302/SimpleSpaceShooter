@@ -12,13 +12,13 @@ func freeze_frame(timescale, duration):
 func instantiate_scene(node_path, pos, add_to):
 	var node = node_path.instantiate()
 	node.global_position = pos
-	add_to.add_child(node)
+	add_to.call_deferred("add_child", node)
 	return node
 
 func check_player():
 	return get_tree().current_scene.get_node_or_null("Player")
 
-func screen_shake(shake_time, intensity):
+func screen_shake(shake_time, intensity: int = 1):
 	var cam = Global.camera
 	cam.shake(shake_time, intensity)
 
