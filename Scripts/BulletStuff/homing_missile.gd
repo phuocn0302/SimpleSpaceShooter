@@ -64,5 +64,6 @@ func _on_life_time_timeout():
 #
 #
 func _on_health_component_zero_hp():
-	explode()
-	queue_free()
+	if not $LifeTime.time_left <= 0.5:
+		explode()
+		queue_free()
