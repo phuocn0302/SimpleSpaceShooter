@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://cwe65p7n516fd"]
+
+[ext_resource type="Script" path="res://Scripts/BulletStuff/laser.gd" id="1_kg22a"]
+[ext_resource type="PackedScene" uid="uid://wja8hp8m0buw" path="res://Scenes/Component/hitbox_component.tscn" id="2_btjbj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7o2sr"]
+size = Vector2(1, 6)
+
+[node name="Laser" type="Node2D"]
+script = ExtResource("1_kg22a")
+
+[node name="Line2D" type="Line2D" parent="."]
+points = PackedVector2Array(0, 0, 1, 0)
+width = 6.0
+
+[node name="HitboxComponent2" parent="Line2D" instance=ExtResource("2_btjbj")]
+collision_layer = 0
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Line2D/HitboxComponent2"]
+position = Vector2(0.5, 0)
+shape = SubResource("RectangleShape2D_7o2sr")

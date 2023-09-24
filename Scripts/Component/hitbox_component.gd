@@ -6,6 +6,7 @@ class_name HitboxComponent
 @export var damage: float = 1
 @export var destroy_on_impact: bool = false
 
+
 func active():
 	self.set_deferred("monitoring", true)
 	self.set_deferred("monitorable", true)
@@ -21,7 +22,7 @@ func damaged(value):
 func _on_area_entered(area):
 	if area.has_method("damaged"):
 		area.damaged(damage)
-	if destroy_effect != null:
-		GlobalFunction.instantiate_scene(destroy_effect, global_position, get_tree().current_scene)
 	if destroy_on_impact:
+		if destroy_effect != null:
+			GlobalFunction.instantiate_scene(destroy_effect, global_position, get_tree().current_scene)
 		get_parent().queue_free()
