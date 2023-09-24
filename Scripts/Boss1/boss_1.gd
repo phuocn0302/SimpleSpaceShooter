@@ -125,12 +125,8 @@ func change_phase():
 
 func _on_health_component_taking_damage():
 	function.flash(self)
-	function.flash($Drone)
-	function.flash($Drone2)
 
-func _on_changer_dir_timeout():
-	var random_dir = [Vector2.UP, Vector2.DOWN].pick_random()
-	dir *= random_dir
+
 
 func _die():
 	function.explode_effect(global_position)
