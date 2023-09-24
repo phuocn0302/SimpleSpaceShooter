@@ -36,6 +36,7 @@ func _ready():
 	look_at(global_position + velocity)
 
 func _process(delta):
+	
 	player = Global.player as Player
 	
 	animated_sprite_2d.play("default")
@@ -61,8 +62,7 @@ func explode():
 func _on_life_time_timeout():
 	explode()
 	queue_free()
-#
-#
+
 func _on_health_component_zero_hp():
 	if not $LifeTime.time_left <= 0.5:
 		explode()
