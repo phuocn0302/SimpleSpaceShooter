@@ -23,25 +23,25 @@ glow_map_strength = 1.0
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_d2h3g")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-visible = false
-texture = ExtResource("2_knx7q")
-offset = Vector2(-38.475, 0.78)
-flip_h = true
-
 [node name="RayCast2D" type="RayCast2D" parent="."]
-target_position = Vector2(0, 0)
+target_position = Vector2(-54.41, 0)
 
 [node name="Line2D" type="Line2D" parent="RayCast2D"]
 points = PackedVector2Array(0, 0, 0, 0)
 width = 0.0
 
 [node name="Line2D2" type="Line2D" parent="RayCast2D"]
+visible = false
 points = PackedVector2Array(0, 0, 0, 0)
 width = 1.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="RayCast2D"]
 environment = SubResource("Environment_yicep")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_knx7q")
+offset = Vector2(-38.475, 0.78)
+flip_h = true
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
 position = Vector2(0, -2.395)
@@ -52,15 +52,12 @@ emission_sphere_radius = 4.0
 direction = Vector2(0, 0)
 spread = 56.91
 gravity = Vector2(0, 1)
-initial_velocity_min = 25.0
-initial_velocity_max = 25.0
+linear_accel_min = 53.54
+linear_accel_max = 66.07
 radial_accel_min = -100.0
 radial_accel_max = -100.0
-color = Color(1, 0, 0, 1)
 
 [node name="Camera2D" type="Camera2D" parent="."]
-visible = false
 
 [node name="Player" parent="." instance=ExtResource("3_4svyg")]
-visible = false
 position = Vector2(-74, -54)

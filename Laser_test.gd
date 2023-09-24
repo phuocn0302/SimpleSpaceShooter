@@ -14,8 +14,8 @@ func _process(delta):
 	
 	if is_charging:
 		$Sprite2D.look_at(player.global_position)
-		$RayCast2D/Line2D2.visible = true
-		rc.target_position = player.global_position
+		$RayCast2D/Line2D2.visible = false
+		rc.target_position = player.global_position * 50
 		warning = rc.target_position
 		$RayCast2D/Line2D2.points[1] = warning
 		await get_tree().create_timer(0.5).timeout
@@ -30,10 +30,11 @@ func _process(delta):
 func laser_release():
 	var temp = rc.target_position
 	$CPUParticles2D.emitting = true
-	create_tween().tween_property($RayCast2D/Line2D,"width",2,0).set_trans(Tween.TRANS_LINEAR)
+	create_tween().tween_property($RayCast2D/Line2D,"width",15,0.1).set_trans(Tween.TRANS_LINEAR)
 	create_tween().tween_property(self,"front",temp,0.1).set_trans(Tween.TRANS_LINEAR)
-	await get_tree().create_timer(0.1).timeout
-	create_tween().tween_property(self,"end",front,0.1).set_trans(Tween.TRANS_LINEAR)
+	await get_tree().create_timer(0.5).timeout
+	#create_tween().tween_property(self,"end",front,0.5).set_trans(Tween.TRANS_LINEAR)
+	create_tween().tween_property($RayCast2D/Line2D,"width",0,0.1).set_trans(Tween.TRANS_LINEAR)
 	$CPUParticles2D.emitting = false	
 	await get_tree().create_timer(0.5).timeout
 	end = Vector2.ZERO
