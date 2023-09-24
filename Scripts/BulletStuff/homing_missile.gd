@@ -1,6 +1,7 @@
 extends Node2D
 class_name Enemy_Missile
 
+@export var explode_on_impact: bool = true
 @export var launch_speed: float = 200
 @export var chase_speed: float = 50
 @export var speed_change: float = 4
@@ -8,6 +9,8 @@ class_name Enemy_Missile
 
 @onready var animated_sprite_2d = $AnimatedSprite2D
 @onready var animation_player = $AnimationPlayer
+
+var ExplosionScene = preload("res://Scenes/BulletStuff/damage_explosion.tscn")
 
 var speed: float:
 	get:
@@ -41,24 +44,25 @@ func _process(delta):
 	look_at(global_position + velocity)
 	move(delta)
 
-
 func move(delta):
 	var velocity_to_player = Vector2.LEFT
 	if player != null:
 		velocity_to_player = global_position.direction_to(player.global_position)
 
 	var deg = velocity.angle_to(velocity_to_player)
-	velocity = velocity.rotated(deg * delta * 60/ rotate_speed_frame)
+	velocity = velocity.rotated((deg * delta * 60)/ rotate_speed_frame)
 	
 	global_position += velocity.normalized() * speed * delta
 	speed -= speed_change
 
+func explode():
+		function.instantiate_scene(ExplosionScene, global_position, get_tree().current_scene)
+
 func _on_life_time_timeout():
-	function.explode_effect(global_position)
+	explode()
 	queue_free()
-
-
+#
+#
 func _on_health_component_zero_hp():
-	function.explode_effect(global_position)
+	explode()
 	queue_free()
-
