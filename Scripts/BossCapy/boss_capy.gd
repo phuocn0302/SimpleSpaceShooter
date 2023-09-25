@@ -1,18 +1,25 @@
 extends Node2D
 
+@export var init_state: States = States.PHASE1
 @export var raygun_interval: float = 5
 
 @onready var health = $HealthComponent as HealthComponent
 @onready var raygun_muzzle = $RayGun/Muzzle
 @onready var ray_gun = $RayGun
 @onready var missile_spawner = $RocketLauncher/MissileSpawner
-@onready var raygun_active = $RaygunActive
+@onready var raygun_timer = $RaygunTimer
 
 
 var LaserScene = preload("res://Scenes/BulletStuff/laser.tscn")
 
 var t: float = 0
-
+var active_raygun: bool = true:
+	get:
+		return active_raygun
+	set(value):
+		active_raygun = value
+		if not value:
+			raygun_timer.stop()
 
 var function = GlobalFunction as Global_Function
 var player = null
@@ -23,13 +30,8 @@ enum States {
 	PHASE3
 }
 
-var current_state: States:
-	get:
-		return current_state
-	set(value):
-		current_state = value
-		if value == States.PHASE1:
-			raygun_active.start(raygun_interval)
+var current_state: States
+
 
 # Phase 1: Follow player and shoot laser, homing missle
 # Phase 2: At around 60% health, change to phase 2, increase fire rate
@@ -39,7 +41,8 @@ var current_state: States:
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	current_state = States.PHASE1
+	global_position = Vector2(270, 90)
+	current_state = init_state
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -52,8 +55,9 @@ func _process(delta):
 			missile_spawner.shoot_interval = 3
 		States.PHASE2:
 			move(delta)
+			missile_spawner.active = false
 			missile_spawner.shoot_interval = 2
-			raygun_active.wait_time = 1
+			raygun_timer.wait_time = 1
 		States.PHASE3:
 			pass
 
@@ -72,7 +76,8 @@ func move(delta):
 
 
 func raygun_shoot():
-	function.instantiate_scene(LaserScene, raygun_muzzle.global_position, get_tree().current_scene)
+	var laser = function.instantiate_scene(LaserScene, raygun_muzzle.global_position, get_tree().current_scene)
+#	laser.velocity = raygun_muzzle.global_position.direction_to(player.global_position)
 	
 	var tween = get_tree().create_tween()
 	tween.set_trans(Tween.TRANS_SPRING) 
