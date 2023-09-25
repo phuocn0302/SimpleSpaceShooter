@@ -39,7 +39,7 @@ use_parent_material = true
 texture = ExtResource("2_j0ne1")
 
 [node name="Muzzle" type="Marker2D" parent="RayGun"]
-position = Vector2(-31, 0)
+position = Vector2(-36, 0)
 
 [node name="RocketLauncher" type="Node2D" parent="."]
 use_parent_material = true
@@ -53,9 +53,10 @@ texture = ExtResource("3_mx31x")
 position = Vector2(-22, 2)
 shoot_interval = 3.0
 
-[node name="RaygunActive" type="Timer" parent="."]
+[node name="RaygunTimer" type="Timer" parent="."]
 wait_time = 2.0
+autostart = true
 
 [connection signal="taking_damage" from="HealthComponent" to="." method="_on_health_component_taking_damage"]
 [connection signal="zero_hp" from="HealthComponent" to="." method="_on_health_component_zero_hp"]
-[connection signal="timeout" from="RaygunActive" to="." method="_on_raygun_active"]
+[connection signal="timeout" from="RaygunTimer" to="." method="_on_raygun_active"]
