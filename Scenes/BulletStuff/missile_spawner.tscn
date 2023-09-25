@@ -7,7 +7,7 @@
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.474592, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 3
 
-[sub_resource type="CurveTexture" id="CurveTexture_g573t"]
+[sub_resource type="CurveTexture" id="CurveTexture_8vewx"]
 curve = SubResource("Curve_sdkmp")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_14kb2"]
@@ -21,7 +21,7 @@ orbit_velocity_max = 0.0
 damping_min = 100.0
 damping_max = 100.0
 scale_min = 0.5
-scale_curve = SubResource("CurveTexture_g573t")
+scale_curve = SubResource("CurveTexture_8vewx")
 
 [node name="MissileSpawner" type="Node2D"]
 script = ExtResource("1_fdf1k")

@@ -1,7 +1,6 @@
-[gd_scene load_steps=17 format=3 uid="uid://dqxtvoj2ckrl0"]
+[gd_scene load_steps=16 format=3 uid="uid://dqxtvoj2ckrl0"]
 
 [ext_resource type="Script" path="res://Scripts/BulletStuff/damage_explosion.gd" id="1_84kmg"]
-[ext_resource type="Texture2D" uid="uid://ea7yn7iawkw3" path="res://Assets/Texture/Particles/Ship Particle.png" id="3_6hnub"]
 [ext_resource type="Texture2D" uid="uid://bei25b0tmp5i" path="res://Assets/Texture/Particles/circle_explosion-sheet.png" id="3_lv62t"]
 [ext_resource type="PackedScene" uid="uid://wja8hp8m0buw" path="res://Scenes/Component/hitbox_component.tscn" id="3_na2jo"]
 [ext_resource type="Texture2D" uid="uid://dpdr8qkw28igk" path="res://Assets/Texture/EnemyBullet.png" id="4_wyril"]
@@ -108,8 +107,9 @@ explosiveness = 1.0
 [node name="Debris" type="GPUParticles2D" parent="."]
 amount = 20
 process_material = SubResource("ParticleProcessMaterial_pvun2")
-texture = ExtResource("3_6hnub")
 explosiveness = 1.0
+trail_enabled = true
+trail_lifetime = 0.1
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_yoa3c")
