@@ -1,22 +1,77 @@
-[gd_scene load_steps=4 format=3 uid="uid://cwe65p7n516fd"]
+[gd_scene load_steps=11 format=3 uid="uid://cwe65p7n516fd"]
 
 [ext_resource type="Script" path="res://Scripts/BulletStuff/laser.gd" id="1_kg22a"]
-[ext_resource type="PackedScene" uid="uid://wja8hp8m0buw" path="res://Scenes/Component/hitbox_component.tscn" id="2_btjbj"]
+[ext_resource type="Texture2D" uid="uid://brqr7lt7titsq" path="res://Assets/Texture/Bullet/laser_base_12px.png" id="2_8qg4a"]
+[ext_resource type="PackedScene" uid="uid://wja8hp8m0buw" path="res://Scenes/Component/hitbox_component.tscn" id="2_s2dp3"]
+[ext_resource type="Texture2D" uid="uid://ea7yn7iawkw3" path="res://Assets/Texture/Particles/Ship Particle.png" id="3_8yr2s"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_7o2sr"]
-size = Vector2(1, 6)
+[sub_resource type="Curve" id="Curve_4260k"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.474592, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_g573t"]
+curve = SubResource("Curve_4260k")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_cae8o"]
+particle_flag_disable_z = true
+flatness = 1.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 40.0
+initial_velocity_max = 80.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+damping_min = 100.0
+damping_max = 100.0
+scale_max = 3.0
+scale_curve = SubResource("CurveTexture_g573t")
+
+[sub_resource type="Curve" id="Curve_fe4mj"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.728675, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_x6ws2"]
+curve = SubResource("Curve_fe4mj")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_f5ffy"]
+emission_shape = 3
+emission_box_extents = Vector3(300, 1, 0)
+particle_flag_disable_z = true
+spread = 0.0
+gravity = Vector3(0, 0, 0)
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+tangential_accel_min = -100.0
+tangential_accel_max = 100.0
+damping_min = 30.0
+damping_max = 30.0
+scale_max = 2.0
+scale_curve = SubResource("CurveTexture_x6ws2")
 
 [node name="Laser" type="Node2D"]
 script = ExtResource("1_kg22a")
+laser_texture = ExtResource("2_8qg4a")
 
 [node name="Line2D" type="Line2D" parent="."]
-points = PackedVector2Array(0, 0, 1, 0)
-width = 6.0
+width = 0.0
+texture_mode = 1
 
-[node name="HitboxComponent2" parent="Line2D" instance=ExtResource("2_btjbj")]
+[node name="HitboxComponent" parent="." instance=ExtResource("2_s2dp3")]
 collision_layer = 0
 monitorable = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Line2D/HitboxComponent2"]
-position = Vector2(0.5, 0)
-shape = SubResource("RectangleShape2D_7o2sr")
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HitboxComponent"]
+polygon = PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0)
+
+[node name="LaunchEffect" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 6
+process_material = SubResource("ParticleProcessMaterial_cae8o")
+texture = ExtResource("3_8yr2s")
+one_shot = true
+explosiveness = 1.0
+
+[node name="BeamEffect" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 300
+process_material = SubResource("ParticleProcessMaterial_f5ffy")
+one_shot = true
