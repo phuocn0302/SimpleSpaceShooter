@@ -52,12 +52,12 @@ func _process(delta):
 	match current_state:
 		State.PHASE1:
 			check_drone()
-			hitbox_component.deactive(true)
+			hitbox_component.deactivated(true)
 			shoot(shoot_timer, shoot_thres)
 			shoot_at_player = true
 		State.PHASE2:
 			animation_player.play("PHASE2_RESET")
-			hitbox_component.active()
+			hitbox_component.activated()
 			follow_player(delta)
 			shoot_at_player = false
 			bullet_speed = 200
@@ -125,6 +125,8 @@ func change_phase():
 
 func _on_health_component_taking_damage():
 	function.flash(self)
+	function.flash($Drone)
+	function.flash($Drone2)
 
 
 

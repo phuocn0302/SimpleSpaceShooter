@@ -44,5 +44,5 @@ func _on_health_component_zero_hp():
 	drone_die.emit()
 	function.explode_effect(global_position)
 	function.screen_shake(0.5, 1)
-	hitbox_component.deactive()
+	hitbox_component.deactivated()
 	set_process(false)

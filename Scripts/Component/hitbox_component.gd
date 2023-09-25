@@ -7,11 +7,11 @@ class_name HitboxComponent
 @export var destroy_on_impact: bool = false
 
 
-func active():
+func activated():
 	self.set_deferred("monitoring", true)
 	self.set_deferred("monitorable", true)
 
-func deactive(can_deal_damage: bool = false):
+func deactivated(can_deal_damage: bool = false):
 	self.set_deferred("monitoring", can_deal_damage)
 	self.set_deferred("monitorable", false)
 

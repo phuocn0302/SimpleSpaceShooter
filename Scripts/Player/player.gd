@@ -55,9 +55,9 @@ func shoot():
 		can_shoot = true
 
 func iframe(duration):
-	hitbox_component.deactive()
+	hitbox_component.deactivated()
 	await get_tree().create_timer(duration).timeout
-	hitbox_component.active()
+	hitbox_component.activated()
 	function.flash(self)
 	anim_player.play("RESET")
 

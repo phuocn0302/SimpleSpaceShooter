@@ -10,17 +10,17 @@ func _ready():
 	
 	$Dust.one_shot = true
 	$Debris.one_shot = true
-	
-	hitbox_component.deactive()
+
+	hitbox_component.deactivated()
 	self.rotate(deg_to_rad(randi_range(0,180)))
 	animated_sprite_2d.play("default")
 	GlobalFunction.screen_shake(0.5)
 
 func _process(_delta):
 	if animated_sprite_2d.frame in explode_frame:
-		hitbox_component.active()
+		hitbox_component.activated()
 	else:
-		hitbox_component.deactive()
+		hitbox_component.deactivated()
 
 func _on_life_time_timeout():
 	queue_free()
