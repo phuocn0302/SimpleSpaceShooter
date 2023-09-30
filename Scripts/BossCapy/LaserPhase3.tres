@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="LaserResource" load_steps=3 format=3 uid="uid://fdu2nd0qgtu3"]
+
+[ext_resource type="Texture2D" uid="uid://6oux2lvqshcx" path="res://Assets/Texture/Bullet/laser_base_94px.png" id="1_7dnxf"]
+[ext_resource type="Script" path="res://Scripts/BulletStuff/laser_resource.gd" id="1_eydj0"]
+
+[resource]
+script = ExtResource("1_eydj0")
+laser_texture = ExtResource("1_7dnxf")
+velocity = Vector2(-1, 0)
+distance = 360.0
+laser_width = 0
+laser_cast_time = 0.1
+laser_decay_time = 0.2
+laser_dur = 2.0

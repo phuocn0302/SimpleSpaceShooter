@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://rvavq5jbr2i4"]
+[gd_scene load_steps=10 format=3 uid="uid://rvavq5jbr2i4"]
 
 [ext_resource type="Texture2D" uid="uid://67a61cryxo2v" path="res://Assets/Texture/BossCapy/BossCapyShip.png" id="1_2edpg"]
 [ext_resource type="Script" path="res://Scripts/BossCapy/boss_capy.gd" id="1_kf1v4"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://chia8b5acjtar" path="res://Scenes/Component/health_component.tscn" id="3_2sgfc"]
 [ext_resource type="PackedScene" uid="uid://wja8hp8m0buw" path="res://Scenes/Component/hitbox_component.tscn" id="3_b2s80"]
 [ext_resource type="Texture2D" uid="uid://bwotjj0ud15yt" path="res://Assets/Texture/BossCapy/BossCapyRayRocket.png" id="3_mx31x"]
+[ext_resource type="PackedScene" uid="uid://dyk4okm8p0hyo" path="res://Scenes/BulletStuff/laser_spawner.tscn" id="7_q0okk"]
 [ext_resource type="PackedScene" uid="uid://1mkaqh22mptf" path="res://Scenes/BulletStuff/missile_spawner.tscn" id="7_y4nbn"]
 
 [node name="BossCapy" type="Node2D"]
@@ -38,8 +39,10 @@ position = Vector2(-24, 0)
 use_parent_material = true
 texture = ExtResource("2_j0ne1")
 
-[node name="Muzzle" type="Marker2D" parent="RayGun"]
-position = Vector2(-36, 0)
+[node name="LaserSpawner" parent="RayGun" instance=ExtResource("7_q0okk")]
+position = Vector2(-33, 0)
+show_warning = false
+use_texture_width = true
 
 [node name="RocketLauncher" type="Node2D" parent="."]
 use_parent_material = true
@@ -53,10 +56,7 @@ texture = ExtResource("3_mx31x")
 position = Vector2(-22, 2)
 shoot_interval = 3.0
 
-[node name="RaygunTimer" type="Timer" parent="."]
-wait_time = 2.0
-autostart = true
-
+[connection signal="change_state" from="." to="." method="_on_change_state"]
 [connection signal="taking_damage" from="HealthComponent" to="." method="_on_health_component_taking_damage"]
 [connection signal="zero_hp" from="HealthComponent" to="." method="_on_health_component_zero_hp"]
-[connection signal="timeout" from="RaygunTimer" to="." method="_on_raygun_active"]
+[connection signal="shot" from="RayGun/LaserSpawner" to="." method="raygun_shoot"]
