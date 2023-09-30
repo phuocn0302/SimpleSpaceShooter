@@ -15,15 +15,13 @@ func instantiate_scene(node_path, pos, add_to):
 	add_to.call_deferred("add_child", node)
 	return node
 
-func check_player():
-	return get_tree().current_scene.get_node_or_null("Player")
-
-func screen_shake(shake_time, intensity: int = 1):
+func screen_shake(shake_time: float, intensity: int = 1):
 	var cam = Global.camera
 	cam.shake(shake_time, intensity)
 
-func explode_effect(position):
-	instantiate_scene(ExplosionPath, position, get_tree().current_scene)
+func explode_effect(position, scale: int = 1):
+	var explode = instantiate_scene(ExplosionPath, position, get_tree().current_scene)
+	explode.scale = Vector2(scale, scale)
 
 func flash(node):
 	node.material = ShaderMaterial.new()
