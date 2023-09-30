@@ -5,7 +5,7 @@ var BulletPath = preload("res://Scenes/Player/bullet.tscn")
 var ExplosionPath = preload("res://Scenes/Particles/explosion.tscn")
 var FlashShader = preload("res://Shaders/flash.gdshader")
 
-@export var speed: float = 9000.0
+@export var speed: float = 150
 @export var dash_multipler: float = 2.0
 @export var fire_rate: float = 0.2 # Per second
 
@@ -35,15 +35,15 @@ func _process(_delta):
 	$DashAbility.unlock()
 
 
-func _physics_process(delta):
-	get_input(delta)
+func _physics_process(_delta):
+	get_input()
 	move_and_slide()
 
-func get_input(delta):
+func get_input():
 	var dir = Input.get_vector("left","right","up","down").normalized()
 	player_dir = dir
 	if can_move:
-		velocity = dir * speed * delta
+		velocity = dir * speed
 	if (Input.is_action_pressed("shoot")):
 		shoot()
 

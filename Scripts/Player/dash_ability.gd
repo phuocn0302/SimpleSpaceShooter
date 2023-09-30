@@ -34,7 +34,7 @@ func _process(_delta):
 
 func dash(player_dir, speed_multipler):
 	var dash_dir = Vector2.RIGHT if player_dir == Vector2.ZERO else player_dir
-	player.velocity = dash_dir * player.speed * speed_multipler * get_physics_process_delta_time()
+	player.velocity = dash_dir * player.speed * speed_multipler
 	
 	player.iframe(dash_dur + player.iframe_dur/2)
 	
