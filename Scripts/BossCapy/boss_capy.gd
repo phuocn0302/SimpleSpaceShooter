@@ -18,8 +18,6 @@ var LaserPhase3 = preload("res://Scripts/BossCapy/LaserPhase3.tres")
 
 
 var t: float = 0
-var can_move_to: bool = false
-
 var function = GlobalFunction as Global_Function
 var player = null
 
@@ -96,20 +94,12 @@ func move(delta):
 		global_position.y = lerp(global_position.y, player.global_position.y, 2 * delta)
 
 func move_to(pos, delta):
-	global_position = lerp(global_position, pos, 2 * delta)
+	global_position = lerp(global_position, pos, delta)
 
 func move_circle():
 	t = fposmod(t + 0.1, 2 * PI)
 	global_position.x += sin(t) * 0.25
 	global_position.y += cos(t) * 0.25
-
-func phase3_move():
-	var pos = [Vector2(300, 45), Vector2(300, 135)].pick_random()
-	if can_move_to:
-		global_position = lerp(global_position, pos, 2 * get_process_delta_time())
-		await get_tree().create_timer(1).timeout
-		laser_spawner.shoot()
-		can_move_to = false
 
 func raygun_shoot():
 	var tween = get_tree().create_tween()
