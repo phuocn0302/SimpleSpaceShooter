@@ -13,6 +13,7 @@ config_version=5
 config/name="SimpleSpaceShooter"
 run/main_scene="res://Scenes/world.tscn"
 config/features=PackedStringArray("4.1", "Mobile")
+run/max_fps=60
 config/icon="res://icon.svg"
 
 [autoload]
