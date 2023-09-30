@@ -1,11 +1,12 @@
 extends Camera2D
 
 var shake_amount = 0
-var default_offset = offset
+var default_offset = Vector2.ZERO
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	randomize()
+	offset = default_offset
 	Global.camera = self
 	set_process(false)
 
