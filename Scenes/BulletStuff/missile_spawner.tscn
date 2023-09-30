@@ -26,6 +26,8 @@ scale_curve = SubResource("CurveTexture_8vewx")
 [node name="MissileSpawner" type="Node2D"]
 script = ExtResource("1_fdf1k")
 
+[node name="ShootTimer" type="Timer" parent="."]
+
 [node name="LaunchEffect" type="GPUParticles2D" parent="."]
 emitting = false
 amount = 6
@@ -33,3 +35,5 @@ process_material = SubResource("ParticleProcessMaterial_14kb2")
 texture = ExtResource("2_drkbt")
 one_shot = true
 explosiveness = 1.0
+
+[connection signal="timeout" from="ShootTimer" to="." method="shoot"]

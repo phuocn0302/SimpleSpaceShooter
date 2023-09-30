@@ -6,12 +6,20 @@ extends Node2D
 	set(value):
 		active = value
 		if active:
-			activated()
+			if shoot_timer.is_stopped(): shoot_timer.start(shoot_interval)
 		else:
-			deactivated()
-
+			if shoot_timer: shoot_timer.stop()
+		
 @export var direction: Vector2 = Vector2.LEFT
-@export var shoot_interval: float = 1
+
+@export var shoot_interval: float = 5:
+	get:
+		return shoot_interval
+	set(value):
+		shoot_interval = value
+		if shoot_timer: shoot_timer.wait_time = shoot_interval
+		
+@onready var shoot_timer = $ShootTimer
 
 var MissileScene = preload("res://Scenes/BulletStuff/homing_missile.tscn")
 
@@ -20,26 +28,11 @@ var can_shoot: bool = true
 var function = GlobalFunction as Global_Function
 
 func _ready():
+	shoot_timer.wait_time = shoot_interval
 	active = active
 	randomize()
 
-func _process(_delta):
-	shoot()
-
-func activated():
-	set_process(true)
-
-func deactivated():
-	set_process(false)
-
 func shoot():
-	if can_shoot:
-		spawn()
-		can_shoot = false
-		await get_tree().create_timer(shoot_interval).timeout
-		can_shoot = true
-
-func spawn():
 	var missile = function.instantiate_scene(MissileScene, global_position, get_tree().current_scene) as Enemy_Missile
 	var launch_vel = direction.rotated(deg_to_rad(randi_range(-45,0)))
 	missile.launch_velocity = launch_vel
