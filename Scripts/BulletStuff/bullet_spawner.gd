@@ -5,7 +5,7 @@ extends Node2D
 		return active
 	set(value):
 		active = value
-		if value == true:
+		if active:
 			set_process(true)
 		else:
 			set_process(false)
