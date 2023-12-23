@@ -1,0 +1,34 @@
+[gd_scene load_steps=8 format=3 uid="uid://bijp6jon0cepn"]
+
+[ext_resource type="PackedScene" uid="uid://da1i73qbxccti" path="res://Scenes/Enemy/base_enemy.tscn" id="1_fes1l"]
+[ext_resource type="Script" path="res://Scripts/Enemy/path_enemy.gd" id="1_lgygg"]
+[ext_resource type="PackedScene" uid="uid://dhppob31bvgco" path="res://Scenes/Particles/engine_fire.tscn" id="3_18dni"]
+[ext_resource type="Script" path="res://Scripts/Enemy/base_enemy_resources.gd" id="3_jwdvw"]
+[ext_resource type="Texture2D" uid="uid://dohdccsjbso4t" path="res://Assets/Texture/Enemy/Ship.png" id="3_ksx3e"]
+[ext_resource type="Curve2D" uid="uid://bv6gaacb8magu" path="res://Scripts/Enemy/enemy_path1.tres" id="4_4r557"]
+
+[sub_resource type="Resource" id="Resource_mg72b"]
+script = ExtResource("3_jwdvw")
+speed = 80.0
+
+[node name="PathEnemy" instance=ExtResource("1_fes1l")]
+script = ExtResource("1_lgygg")
+stat_resouces = SubResource("Resource_mg72b")
+path = ExtResource("4_4r557")
+
+[node name="FireEffect" parent="." index="0" instance=ExtResource("3_18dni")]
+position = Vector2(16, 0)
+rotation = 3.14159
+amount = 4
+
+[node name="Sprite2D" parent="." index="1"]
+texture = ExtResource("3_ksx3e")
+flip_h = true
+
+[node name="HealthComponent" parent="." index="2"]
+max_hp = 3.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HitboxComponent" index="0"]
+polygon = PackedVector2Array(-15, 0, 0, -13, 14, -14, 14, 14, 0, 13)
+
+[connection signal="zero_hp" from="HealthComponent" to="." method="_die"]

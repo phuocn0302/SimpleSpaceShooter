@@ -1,0 +1,82 @@
+[gd_scene load_steps=9 format=3 uid="uid://dwkswp307i0q1"]
+
+[ext_resource type="PackedScene" uid="uid://da1i73qbxccti" path="res://Scenes/Enemy/base_enemy.tscn" id="1_08v60"]
+[ext_resource type="Texture2D" uid="uid://bx0nwtmuiowxe" path="res://Assets/Texture/Enemy/SpinEnemy.png" id="2_8rupu"]
+[ext_resource type="Script" path="res://Scripts/Enemy/spin_enemy.gd" id="2_g4ayo"]
+[ext_resource type="Texture2D" uid="uid://y2sg3fsbrh4w" path="res://Assets/Texture/Enemy/SpinEnemySpike.png" id="3_27ke6"]
+[ext_resource type="Script" path="res://Scripts/Enemy/base_enemy_resources.gd" id="3_la316"]
+[ext_resource type="PackedScene" uid="uid://bknimms34evip" path="res://Scenes/BulletStuff/enemy_bullet.tscn" id="4_6ywdr"]
+
+[sub_resource type="Resource" id="Resource_hkkt0"]
+script = ExtResource("3_la316")
+speed = 50.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_77u57"]
+
+[node name="SpinEnemy" instance=ExtResource("1_08v60")]
+script = ExtResource("2_g4ayo")
+stat_resouces = SubResource("Resource_hkkt0")
+init_velocity = Vector2(-1, -6)
+bullet_scene = ExtResource("4_6ywdr")
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_8rupu")
+
+[node name="HealthComponent" parent="." index="1"]
+max_hp = 20.0
+
+[node name="HitboxComponent" parent="." index="2"]
+collision_mask = 513
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" index="0"]
+shape = SubResource("CircleShape2D_77u57")
+
+[node name="Rotator" type="Node2D" parent="." index="3"]
+
+[node name="Gun1" type="Node2D" parent="Rotator" index="0"]
+position = Vector2(-21, 0)
+rotation = -1.5708
+
+[node name="Sprite2D" type="Sprite2D" parent="Rotator/Gun1" index="0"]
+texture = ExtResource("3_27ke6")
+
+[node name="ShootPos" type="Marker2D" parent="Rotator/Gun1" index="1"]
+position = Vector2(3.49691e-07, -8)
+
+[node name="Gun2" type="Node2D" parent="Rotator" index="1"]
+position = Vector2(0, -21)
+
+[node name="Sprite2D" type="Sprite2D" parent="Rotator/Gun2" index="0"]
+texture = ExtResource("3_27ke6")
+
+[node name="ShootPos" type="Marker2D" parent="Rotator/Gun2" index="1"]
+position = Vector2(3.49691e-07, -8)
+
+[node name="Gun3" type="Node2D" parent="Rotator" index="2"]
+position = Vector2(21, 0)
+rotation = 1.5708
+
+[node name="Sprite2D" type="Sprite2D" parent="Rotator/Gun3" index="0"]
+texture = ExtResource("3_27ke6")
+
+[node name="ShootPos" type="Marker2D" parent="Rotator/Gun3" index="1"]
+position = Vector2(3.49691e-07, -8)
+
+[node name="Gun4" type="Node2D" parent="Rotator" index="3"]
+position = Vector2(0, 21)
+rotation = -3.14159
+
+[node name="Sprite2D" type="Sprite2D" parent="Rotator/Gun4" index="0"]
+texture = ExtResource("3_27ke6")
+
+[node name="ShootPos" type="Marker2D" parent="Rotator/Gun4" index="1"]
+position = Vector2(3.49691e-07, -8)
+
+[node name="ShootTimer" type="Timer" parent="." index="4"]
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." index="5"]
+
+[connection signal="zero_hp" from="HealthComponent" to="." method="_die"]
+[connection signal="body_entered" from="HitboxComponent" to="." method="_worldbound_entered"]
+[connection signal="timeout" from="ShootTimer" to="." method="shoot"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
