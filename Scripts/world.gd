@@ -1,7 +1,7 @@
 extends Node2D
 
 var PlayerPath = preload("res://Scenes/Player/player.tscn")
-var EnemyPath = preload("res://Scenes/enemy.tscn")
+var EnemyPath = preload("res://Scenes/Enemy/godot_enemy.tscn")
 
 @export var enemy_spawn_rate = 1.0 # Per second
 @export var enemy_can_spawn = false

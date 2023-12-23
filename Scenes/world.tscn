@@ -1,10 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://chuti8pmchocr"]
+[gd_scene load_steps=7 format=3 uid="uid://chuti8pmchocr"]
 
 [ext_resource type="Script" path="res://Scripts/world.gd" id="1_wdwe3"]
 [ext_resource type="Script" path="res://Scripts/camera.gd" id="2_ilw1g"]
-[ext_resource type="Shader" path="res://Shaders/change_color.gdshader" id="3_13uas"]
+[ext_resource type="PackedScene" uid="uid://dwkswp307i0q1" path="res://Scenes/Enemy/spin_enemy.tscn" id="4_5urcu"]
 [ext_resource type="Script" path="res://Scripts/color_palette.gd" id="4_f001o"]
-[ext_resource type="PackedScene" uid="uid://rvavq5jbr2i4" path="res://Scenes/BossCapy/boss_capy.tscn" id="5_pbdpr"]
 
 [sub_resource type="Environment" id="Environment_imqd3"]
 background_mode = 3
@@ -26,13 +25,9 @@ orbit_velocity_min = 0.0
 orbit_velocity_max = 0.0
 scale_max = 1.5
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ixaiv"]
-shader = ExtResource("3_13uas")
-shader_parameter/bright_color = Color(1, 1, 1, 1)
-shader_parameter/dark_color = Color(0, 0, 0, 1)
-
 [node name="World" type="Node2D"]
 script = ExtResource("1_wdwe3")
+enemy_spawn_rate = 3.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_imqd3")
@@ -43,11 +38,11 @@ amount = 5
 process_material = SubResource("ParticleProcessMaterial_r1ldr")
 metadata/_edit_lock_ = true
 
-[node name="Bound" type="StaticBody2D" parent="."]
+[node name="Bound" type="StaticBody2D" parent="." groups=["ScreenBound"]]
 collision_layer = 512
 collision_mask = 0
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Bound" groups=["Boundary"]]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Bound"]
 polygon = PackedVector2Array(0, 180, -22, 215, -22, -30, 399, -30, 399, 215, -22, 215, 0, 180, 360, 180, 360, 0, 0, 0)
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -57,9 +52,10 @@ metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="Camera2D"]
+visible = false
 
 [node name="ColorPalette" type="ColorRect" parent="Camera2D/CanvasLayer"]
-material = SubResource("ShaderMaterial_ixaiv")
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -89,5 +85,11 @@ position = Vector2(360, 150)
 
 [node name="EnemyContainer" type="Node2D" parent="."]
 
-[node name="BossCapy" parent="." instance=ExtResource("5_pbdpr")]
-position = Vector2(269, 72)
+[node name="SpinEnemy" parent="." instance=ExtResource("4_5urcu")]
+position = Vector2(300, 60)
+init_velocity = Vector2(-1, -5)
+
+[node name="SpinEnemy2" parent="." instance=ExtResource("4_5urcu")]
+position = Vector2(300, 120)
+init_velocity = Vector2(-1, 5)
+rotation_deg = -210.0
