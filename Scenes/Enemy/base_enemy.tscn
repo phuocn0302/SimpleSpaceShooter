@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://da1i73qbxccti"]
+
+[ext_resource type="PackedScene" uid="uid://chia8b5acjtar" path="res://Scenes/Component/health_component.tscn" id="1_32taq"]
+[ext_resource type="PackedScene" uid="uid://wja8hp8m0buw" path="res://Scenes/Component/hitbox_component.tscn" id="2_8af1d"]
+
+[node name="BaseEnemy" type="Node2D" groups=["Enemy"]]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+use_parent_material = true
+
+[node name="HealthComponent" parent="." instance=ExtResource("1_32taq")]
+
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("health") instance=ExtResource("2_8af1d")]
+collision_layer = 2
+health = NodePath("../HealthComponent")
