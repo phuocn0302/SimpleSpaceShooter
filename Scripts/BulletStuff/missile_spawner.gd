@@ -6,7 +6,8 @@ extends Node2D
 	set(value):
 		active = value
 		if active:
-			if shoot_timer.is_stopped(): shoot_timer.start(shoot_interval)
+			if shoot_timer and shoot_timer.is_stopped(): 
+				shoot_timer.start(shoot_interval)
 		else:
 			if shoot_timer: shoot_timer.stop()
 		

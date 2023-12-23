@@ -51,6 +51,7 @@ func _process(delta):
 	player = Global.player
 	match current_state:
 		State.PHASE1:
+			inf_movement(delta)
 			check_drone()
 			hitbox_component.deactivated(true)
 			shoot(shoot_timer, shoot_thres)
@@ -70,12 +71,17 @@ func check_drone():
 		change_phase()
 
 func follow_player(delta):
-	time = wrapf(time + 0.05, 0, 2 * PI)
+	time = fposmod(time + 0.05, 2 * PI)
 	global_position.x += cos(time)
 	global_position.y += cos(2 * time) * 1.3
 	
 	if player != null:
 		global_position.y = lerp(global_position.y, player.global_position.y, delta)
+
+func inf_movement(delta):
+	time = fposmod(time + delta, 2 * PI)
+	global_position.x += cos(time) * 0.25
+	global_position.y += cos(2 * time) * 0.25
 
 func shoot(shoot_interval, threshold):
 	if shoot_counter >= threshold:
@@ -124,7 +130,7 @@ func change_phase():
 	random_bullet_spread = false
 
 func _on_health_component_taking_damage():
-	function.flash(self)
+#	function.flash(self)
 	function.flash($Drone)
 	function.flash($Drone2)
 

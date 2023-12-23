@@ -8,7 +8,8 @@ extends Node2D
 	set(value):
 		active = value
 		if active:
-			if shoot_timer.is_stopped(): shoot_timer.start(shoot_interval)
+			if shoot_timer and shoot_timer.is_stopped(): 
+				shoot_timer.start(shoot_interval)
 		else:
 			if shoot_timer: shoot_timer.stop()
 		
@@ -59,7 +60,7 @@ func _process(_delta):
 	
 	var width = laser_stat.laser_width
 	if use_texture_width and laser_stat.laser_texture:
-		width = laser_stat.laser_texture.get_height()
+		width = laser_stat.laser_texture.get_height() * 0.5
 	
 	if alway_show_warn_line:
 		tween.tween_property(warn_line, "width", width, 0.1)

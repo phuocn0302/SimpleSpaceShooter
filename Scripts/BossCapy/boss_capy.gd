@@ -61,7 +61,7 @@ var current_state: States:
 				missile_spawner.shoot_interval = 1
 				
 				laser_spawner.laser_stat = LaserPhase3
-				laser_spawner.shoot_interval = 4 + laser_spawner.shoot_interval
+				laser_spawner.shoot_interval = 4.5 + laser_spawner.shoot_interval
 				laser_spawner.active = false
 				await get_tree().create_timer(3 - laser_spawner.shoot_interval).timeout
 				laser_spawner.active = true
@@ -108,7 +108,7 @@ func raygun_shoot():
 	tween.tween_property(ray_gun, "position", ray_gun.position, 1)
 
 func _on_health_component_taking_damage():
-	function.flash(self)
+#	function.flash(self)
 	
 	if health.current_hp <= health.max_hp * 0.6 and current_state == States.PHASE1:
 		current_state = States.PHASE2
