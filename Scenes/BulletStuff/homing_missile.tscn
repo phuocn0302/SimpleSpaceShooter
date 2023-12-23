@@ -130,6 +130,7 @@ position = Vector2(-13, 0)
 amount = 3
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+use_parent_material = true
 sprite_frames = SubResource("SpriteFrames_o5kgm")
 frame_progress = 0.0662416
 speed_scale = 2.0
@@ -144,6 +145,7 @@ max_hp = 3.0
 
 [node name="HitboxComponent" parent="." node_paths=PackedStringArray("health") instance=ExtResource("2_6aw67")]
 collision_layer = 2
+collision_mask = 257
 health = NodePath("../HealthComponent")
 destroy_effect = ExtResource("6_6aqsr")
 destroy_on_impact = true

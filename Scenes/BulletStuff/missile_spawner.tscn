@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://1mkaqh22mptf"]
 
 [ext_resource type="Script" path="res://Scripts/BulletStuff/missile_spawner.gd" id="1_fdf1k"]
-[ext_resource type="Texture2D" uid="uid://dpdr8qkw28igk" path="res://Assets/Texture/EnemyBullet.png" id="2_drkbt"]
+[ext_resource type="Texture2D" uid="uid://dpdr8qkw28igk" path="res://Assets/Texture/Bullet/EnemyBullet.png" id="2_drkbt"]
 
 [sub_resource type="Curve" id="Curve_sdkmp"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.474592, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]

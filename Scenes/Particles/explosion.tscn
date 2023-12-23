@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://ng2tggihhdpm"]
 
-[ext_resource type="Script" path="res://Scripts/explosion.gd" id="1_xuueb"]
+[ext_resource type="Script" path="res://Scripts/Particles/explosion.gd" id="1_xuueb"]
 [ext_resource type="Texture2D" uid="uid://ea7yn7iawkw3" path="res://Assets/Texture/Particles/Ship Particle.png" id="2_eoqrg"]
 
 [sub_resource type="Curve" id="Curve_n28du"]

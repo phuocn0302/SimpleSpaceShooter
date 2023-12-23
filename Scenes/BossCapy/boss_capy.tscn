@@ -10,18 +10,18 @@
 [ext_resource type="PackedScene" uid="uid://dyk4okm8p0hyo" path="res://Scenes/BulletStuff/laser_spawner.tscn" id="7_q0okk"]
 [ext_resource type="PackedScene" uid="uid://1mkaqh22mptf" path="res://Scenes/BulletStuff/missile_spawner.tscn" id="7_y4nbn"]
 
-[node name="BossCapy" type="Node2D"]
+[node name="BossCapy" type="Node2D" groups=["Enemy"]]
 script = ExtResource("1_kf1v4")
 
 [node name="HealthComponent" parent="." instance=ExtResource("3_2sgfc")]
-max_hp = 200.0
+max_hp = 300.0
 
 [node name="HitboxComponent" parent="." node_paths=PackedStringArray("health") instance=ExtResource("3_b2s80")]
 collision_layer = 2
 health = NodePath("../HealthComponent")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HitboxComponent"]
-polygon = PackedVector2Array(-53, -4, -53, 5, -10, 5, -10, 20, -26, 20, -26, 28, 14, 28, 14, 20, 7, 20, 7, 7, 34, 3, 35, -10, 28, -38, 9, -56, -11, -56, -30, -40, -34, -19, -28, -4)
+polygon = PackedVector2Array(-53, -4, -53, 5, -10, 5, -10, 20, -26, 20, -26, 28, 14, 28, 14, 20, 7, 20, 7, 7, 34, 3, 51, 3, 51, -10, 35, -10, 28, -38, 9, -56, -11, -56, -30, -40, -34, -19, -28, -4)
 
 [node name="GPUParticles2D" parent="." instance=ExtResource("2_ie5ff")]
 position = Vector2(38, -3)

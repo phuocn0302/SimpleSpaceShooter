@@ -42,8 +42,7 @@ process_material = SubResource("ParticleProcessMaterial_f5ffy")
 one_shot = true
 
 [node name="HitboxComponent" parent="." instance=ExtResource("2_s2dp3")]
-collision_layer = 0
-monitorable = false
+collision_layer = 256
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HitboxComponent"]
 polygon = PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0)
