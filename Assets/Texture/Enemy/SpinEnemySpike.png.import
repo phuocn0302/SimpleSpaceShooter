@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://y2sg3fsbrh4w"
-path="res://.godot/imported/SpiningEnemyGun.png-316fe277dc9a87971542f74278c039a5.ctex"
+path="res://.godot/imported/SpinEnemySpike.png-740e20e4fdc54e22e0ad03907190cdf5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Texture/SpiningEnemyGun.png"
-dest_files=["res://.godot/imported/SpiningEnemyGun.png-316fe277dc9a87971542f74278c039a5.ctex"]
+source_file="res://Assets/Texture/Enemy/SpinEnemySpike.png"
+dest_files=["res://.godot/imported/SpinEnemySpike.png-740e20e4fdc54e22e0ad03907190cdf5.ctex"]
 
 [params]
 

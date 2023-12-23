@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bx0nwtmuiowxe"
-path="res://.godot/imported/SpiningEnemy.png-b6e42091fc88a89fd1920b412943ef65.ctex"
+uid="uid://5po6gvwo0aer"
+path="res://.godot/imported/Player.png-67b4574814a0870f8d9780203b4417d5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Texture/SpiningEnemy.png"
-dest_files=["res://.godot/imported/SpiningEnemy.png-b6e42091fc88a89fd1920b412943ef65.ctex"]
+source_file="res://Assets/Texture/Player.png"
+dest_files=["res://.godot/imported/Player.png-67b4574814a0870f8d9780203b4417d5.ctex"]
 
 [params]
 

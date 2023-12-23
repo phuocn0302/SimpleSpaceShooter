@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://5po6gvwo0aer"
-path="res://.godot/imported/SmallShip-sheet.png-a852a9b48d6e701879401d766da0f126.ctex"
+uid="uid://cwhkebasj666p"
+path="res://.godot/imported/GodotEnemy.png-6aa9b6143a416559a2d316a06dfc803f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Texture/SmallShip-sheet.png"
-dest_files=["res://.godot/imported/SmallShip-sheet.png-a852a9b48d6e701879401d766da0f126.ctex"]
+source_file="res://Assets/Texture/Enemy/GodotEnemy.png"
+dest_files=["res://.godot/imported/GodotEnemy.png-6aa9b6143a416559a2d316a06dfc803f.ctex"]
 
 [params]
 
